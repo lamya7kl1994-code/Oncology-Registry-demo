@@ -12,7 +12,8 @@
 --ink:#1f2330;
 --muted:#5b6174;
 --accent:#5a3ec8;
---good:#1f8a5f;
+--lavender:#7b6ee6;
+--lavender-light:#dcd7fa;
 --warn:#c07a00;
 --bad:#b3261e;
 --line:#e6e2f2;
@@ -34,67 +35,24 @@ margin:0 auto;
 padding:14px;
 }
 
-.header{
-background:linear-gradient(135deg, rgba(90,62,200,.12), rgba(47,108,255,.10));
-padding:16px;
-border-radius:var(--radius);
-box-shadow:var(--shadow);
-margin-bottom:14px;
-}
-
-.header h1{
-margin:0 0 6px;
-font-size:18px;
-color:var(--accent);
-}
-
-.header p{
-margin:0;
-font-size:13.5px;
-line-height:1.6;
-color:var(--muted);
-}
-
-.card{
+.header, .card{
 background:var(--card);
 border-radius:var(--radius);
-padding:14px;
 box-shadow:var(--shadow);
+padding:14px;
 margin-bottom:12px;
 }
 
-.card h2{
-margin:0 0 8px;
-font-size:15px;
-color:var(--accent);
+.header{
+background:linear-gradient(135deg, rgba(90,62,200,.12), rgba(47,108,255,.10));
 }
 
-.card p{
-margin:0;
-font-size:13.5px;
-line-height:1.7;
-}
+h1{margin:0 0 6px;font-size:18px;color:var(--accent)}
+h2{margin:0 0 8px;font-size:15px;color:var(--accent)}
+p{margin:0;font-size:13.5px;line-height:1.7}
 
-.flow{
-text-align:center;
-font-size:13.5px;
-line-height:1.8;
-}
-
+.flow{text-align:center;font-size:13.5px;line-height:1.8}
 .flow span{display:block}
-
-.btn{
-display:block;
-width:100%;
-border:none;
-border-radius:12px;
-padding:12px;
-background:var(--accent);
-color:#fff;
-font-size:14px;
-cursor:pointer;
-margin-top:10px;
-}
 
 .toggle{
 display:flex;
@@ -105,67 +63,70 @@ border:1px solid var(--line);
 border-radius:10px;
 margin:8px 0;
 }
+.toggle label{font-size:13px}
+.toggle small{display:block;font-size:11.5px;color:var(--muted)}
 
-.toggle label{
+.range-wrap{
+margin:14px 0;
+}
+.range-wrap label{
 font-size:13px;
+display:block;
+margin-bottom:6px;
+}
+input[type=range]{width:100%}
+
+.pattern-bar{
+display:flex;
+gap:6px;
+margin-top:12px;
 }
 
-.toggle small{
-display:block;
-font-size:11.5px;
-color:var(--muted);
+.pattern-bar span{
+flex:1;
+height:20px;
+border-radius:6px;
+background:var(--lavender-light);
+transition:.4s ease;
+}
+
+.pattern-bar span.complete{
+background:var(--lavender);
+}
+
+.pattern-bar span.missing{
+background:repeating-linear-gradient(
+45deg,
+#eceaf8,
+#eceaf8 6px,
+#cfcaf3 6px,
+#cfcaf3 12px
+);
+opacity:.6;
 }
 
 .impact{
-margin-top:10px;
+margin-top:12px;
 padding:10px;
 border-radius:10px;
 font-size:13px;
 line-height:1.6;
 }
-
-.good{background:#e6f5ef;color:var(--good)}
+.good{background:#ecebfb;color:#3f35a8}
 .warn{background:#fff4e5;color:var(--warn)}
 .bad{background:#fdecea;color:var(--bad)}
 
-.pattern{
-display:grid;
-grid-template-columns:repeat(6,1fr);
-gap:6px;
-margin:10px 0;
-}
-.pattern span{
-height:16px;
-border-radius:4px;
-background:#c9c3f3;
-}
-.pattern.warn span:nth-child(odd){opacity:.35}
-.pattern.bad{
-display:flex;
-flex-wrap:wrap;
-gap:6px;
-}
-.pattern.bad span{
-width:16px;
-height:16px;
-background:#f2b8b5;
-}
-
-.details{
-margin-top:10px;
+details{
 border:1px solid var(--line);
 border-radius:12px;
+margin-top:12px;
 }
-.details summary{
+summary{
 padding:10px;
 cursor:pointer;
 font-size:13px;
 }
-.details p{
-padding:10px;
-font-size:13px;
-line-height:1.6;
-}
+details p{padding:10px}
 
 .footer{
 text-align:center;
@@ -179,87 +140,66 @@ margin-top:14px;
 <body>
 <div class="wrap">
 
-<!-- تعريف -->
 <div class="header">
 <h1>سجل الأورام</h1>
 <p>
-سجل طبي تخصصي يُنشأ لكل مريض سرطان،
-يُوثّق رحلة الورم من التشخيص وحتى المتابعة،
-ويحوّل البيانات إلى معرفة صحية ذات أثر.
-</p>
-</div>
-
-<div class="card">
-<h2>لماذا سجل الأورام مهم؟</h2>
-<p>
-لأنه لا يغيّر العلاج،
-لكنه يوفّر بيانات دقيقة تساعد على
-فهم الأنماط، دعم الأبحاث،
-وتحسين التخطيط الصحي المبني على الأدلة.
+سجل طبي تخصصي يوثّق رحلة الورم من التشخيص وحتى المتابعة،
+ويحوّل البيانات إلى معرفة صحية قابلة للتحليل وصناعة الأثر.
 </p>
 </div>
 
 <div class="card">
 <h2>رحلة البيانات</h2>
 <div class="flow">
-<span>المريض</span>
-⬇
-<span>السجل الطبي</span>
-⬇
-<span>سجل أورام المستشفى</span>
-⬇
-<span>السجل الوطني للأورام</span>
-⬇
-<span>مؤشرات وطنية ودولية (منظمة الصحة العالمية)</span>
+<span>المريض</span>⬇
+<span>السجل الطبي</span>⬇
+<span>سجل أورام المستشفى</span>⬇
+<span>السجل الوطني للأورام</span>⬇
+<span>مؤشرات وطنية ودولية</span>
+</div>
 </div>
 
-<button class="btn" onclick="document.getElementById('interactive').scrollIntoView({behavior:'smooth'})">
-جرّب كيف تؤثر البيانات
-</button>
-</div>
-
-<!-- التفاعلي -->
-<div class="card" id="interactive">
+<div class="card">
 <h2>تجربة تفاعلية: اكتمال البيانات</h2>
 
 <div class="toggle">
-<label>مرحلة المرض <small>تسمح بالمقارنة حسب الشدة</small></label>
+<label>مرحلة المرض <small>أساس المقارنة</small></label>
 <input type="checkbox" checked id="stage">
 </div>
 
 <div class="toggle">
-<label>المتابعة <small>تُظهر النتيجة عبر الزمن</small></label>
+<label>المتابعة <small>قياس النتيجة عبر الزمن</small></label>
 <input type="checkbox" checked id="follow">
 </div>
 
 <div class="toggle">
-<label>التاريخ العائلي <small>يدعم فهم الأنماط الوراثية</small></label>
+<label>التاريخ العائلي <small>كشف الأنماط الوراثية</small></label>
 <input type="checkbox" checked id="family">
 </div>
 
 <div class="toggle">
-<label>عوامل الخطورة <small>تربط المرض بالتعرضات</small></label>
+<label>عوامل الخطورة <small>ربط المرض بالتعرضات</small></label>
 <input type="checkbox" checked id="risk">
 </div>
 
-<div id="impactBox" class="impact good">
-✔ البيانات مكتملة → تحليلات موثوقة
+<div class="range-wrap">
+<label>عدد المرضى في التحليل: <strong><span id="count">6</span></strong></label>
+<input type="range" min="1" max="10" value="6" id="patients">
 </div>
 
-<div id="pattern" class="pattern good">
-<span></span><span></span><span></span><span></span><span></span><span></span>
-<span></span><span></span><span></span><span></span><span></span><span></span>
-</div>
+<div id="pattern" class="pattern-bar"></div>
+
+<div id="impact" class="impact"></div>
 </div>
 
-<details class="details">
+<details>
 <summary>كيف يتحول هذا إلى أثر صحي؟</summary>
 <p>
-عند اكتمال البيانات عبر عدد كبير من المرضى،
-تظهر أنماط قابلة للتحليل،
+عند اكتمال البيانات عبر عدد كافٍ من المرضى،
+تظهر أنماط واضحة وقابلة للاستنتاج،
 تُستخدم لدعم الأبحاث،
-تقييم الممارسات الطبية،
-وتحسين السياسات الصحية.
+تقييم الممارسات،
+وتحسين السياسات الصحية المبنية على الأدلة.
 </p>
 </details>
 
@@ -270,37 +210,47 @@ margin-top:14px;
 </div>
 
 <script>
-const stage = document.getElementById("stage");
-const follow = document.getElementById("follow");
-const family = document.getElementById("family");
-const risk = document.getElementById("risk");
-const impact = document.getElementById("impactBox");
+const checks = ["stage","follow","family","risk"].map(id=>document.getElementById(id));
+const slider = document.getElementById("patients");
+const countLabel = document.getElementById("count");
 const pattern = document.getElementById("pattern");
+const impact = document.getElementById("impact");
 
-function update(){
-let missing = 0;
-if(!stage.checked) missing++;
-if(!follow.checked) missing++;
-if(!family.checked) missing++;
-if(!risk.checked) missing++;
+function dataComplete(){
+return checks.every(c=>c.checked);
+}
 
-if(missing === 0){
-impact.className = "impact good";
-impact.textContent = "✔ البيانات مكتملة → تحليلات موثوقة";
-pattern.className = "pattern good";
-} else if(missing <=2){
-impact.className = "impact warn";
-impact.textContent = "⚠ نقص جزئي → التحليل ممكن لكن محدود";
-pattern.className = "pattern warn";
-} else {
-impact.className = "impact bad";
-impact.textContent = "✖ نقص جوهري → لا يمكن بناء استنتاج موثوق";
-pattern.className = "pattern bad";
+function render(){
+const n = Number(slider.value);
+countLabel.textContent = n;
+pattern.innerHTML="";
+
+for(let i=1;i<=10;i++){
+if(i>n) continue;
+const s=document.createElement("span");
+if(dataComplete()) s.classList.add("complete");
+else s.classList.add("missing");
+pattern.appendChild(s);
+}
+
+if(!dataComplete()){
+impact.className="impact warn";
+impact.textContent="بعض البيانات مفقودة → النمط متقطع ولا يمكن الاعتماد عليه علميًا";
+}else if(n<4){
+impact.className="impact warn";
+impact.textContent="البيانات مكتملة لكن العدد قليل → قوة الاستنتاج ضعيفة";
+}else if(n<7){
+impact.className="impact good";
+impact.textContent="البيانات مكتملة → النمط يبدأ بالظهور";
+}else{
+impact.className="impact good";
+impact.textContent="بيانات مكتملة + عدد كافٍ → نمط واضح وتحليل موثوق";
 }
 }
 
-[stage, follow, family, risk].forEach(e => e.addEventListener("change", update));
-update();
+checks.forEach(c=>c.addEventListener("change",render));
+slider.addEventListener("input",render);
+render();
 </script>
 
 </body>
