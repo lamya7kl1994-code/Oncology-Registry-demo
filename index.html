@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>سجل الأورام | تجربة تفاعلية</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>وحدة بيانات وأبحاث الأورام | تجربة تفاعلية</title>
 
 <style>
 :root{
@@ -17,10 +17,11 @@
 --warn:#c07a00;
 --bad:#b3261e;
 --radius:14px;
---shadow:0 8px 24px rgba(25,18,56,.10);
+--shadow:0 10px 26px rgba(25,18,56,.10);
 }
 
 *{box-sizing:border-box}
+html,body{height:100%}
 
 body{
 margin:0;
@@ -30,84 +31,200 @@ color:var(--ink);
 }
 
 .wrap{
-max-width:520px;
+max-width:560px; /* Mobile-first */
 margin:0 auto;
-padding:16px;
+padding:12px 12px 18px;
+}
+
+.header{
+position:sticky;
+top:0;
+z-index:5;
+background:linear-gradient(135deg, rgba(90,62,200,.12), rgba(47,108,255,.10));
+border:1px solid rgba(90,62,200,.15);
+backdrop-filter:saturate(120%) blur(6px);
+border-radius:16px;
+padding:12px 12px;
+margin:10px 0 12px;
+box-shadow:var(--shadow);
+}
+
+.header h1{
+margin:0 0 6px;
+font-size:15px;
+color:var(--accent);
+line-height:1.2;
+}
+
+.header p{
+margin:0;
+font-size:12.5px;
+color:var(--muted);
+line-height:1.5;
 }
 
 .card{
 background:var(--card);
 border-radius:var(--radius);
-padding:16px;
+padding:12px;
 box-shadow:var(--shadow);
-margin-bottom:14px;
+margin:10px 0;
+border:1px solid rgba(230,226,242,.9);
 }
 
-h1{
-font-size:18px;
-margin:0 0 8px;
-color:var(--accent);
-text-align:center;
-}
-
-h2{
-font-size:15px;
+.card h2{
 margin:0 0 10px;
 color:var(--accent);
+font-size:14px;
 }
 
 .toggle{
 display:flex;
 align-items:center;
 justify-content:space-between;
-margin:8px 0;
+gap:10px;
 padding:10px;
+margin:8px 0;
 border:1px solid var(--line);
-border-radius:10px;
+border-radius:12px;
+background:linear-gradient(180deg,#fff, #fff);
 }
 
-.toggle label{font-size:14px}
-.toggle input{transform:scale(1.2)}
+.toggle label{
+font-size:13px;
+line-height:1.3;
+}
+
+.toggle small{
+display:block;
+margin-top:3px;
+color:var(--muted);
+font-size:11.5px;
+}
+
+.toggle input{
+transform:scale(1.15);
+}
+
+.badgeRow{
+display:flex;
+flex-wrap:wrap;
+gap:8px;
+margin-top:8px;
+}
+
+.badge{
+font-size:11.5px;
+padding:6px 10px;
+border-radius:999px;
+border:1px solid var(--line);
+color:var(--muted);
+background:#fff;
+}
 
 .impact{
 margin-top:10px;
 padding:10px;
-border-radius:10px;
-font-size:13px;
-line-height:1.5;
+border-radius:12px;
+font-size:12.8px;
+line-height:1.55;
+border:1px solid rgba(0,0,0,.03);
 }
 
 .good{background:#e6f5ef;color:var(--good)}
 .warn{background:#fff4e5;color:var(--warn)}
 .bad{background:#fdecea;color:var(--bad)}
 
+.list{
+margin:8px 0 0;
+padding:0 18px 0 0;
+}
+
+.list li{margin:6px 0}
+
+.hr{
+height:1px;
+background:var(--line);
+margin:10px 0;
+border:0;
+}
+
 .pattern{
 display:grid;
 grid-template-columns:repeat(6,1fr);
 gap:6px;
-margin:10px 0;
+margin:10px 0 8px;
 }
 .pattern span{
-height:18px;
+height:16px;
 border-radius:4px;
 background:#c9c3f3;
 }
-.pattern.warn span:nth-child(odd){opacity:.4}
+.pattern.warn span:nth-child(odd){opacity:.35}
 .pattern.bad{
 display:flex;
 flex-wrap:wrap;
+gap:6px;
 }
 .pattern.bad span{
-width:18px;
-margin:3px;
+width:16px;
+height:16px;
+margin:0;
 background:#f2b8b5;
 }
 
-footer{
-text-align:center;
+.details{
+border:1px solid var(--line);
+border-radius:12px;
+overflow:hidden;
+margin-top:10px;
+}
+.details summary{
+cursor:pointer;
+list-style:none;
+padding:10px 12px;
+background:#faf9ff;
+color:var(--ink);
+font-size:13px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:10px;
+}
+.details summary::-webkit-details-marker{display:none}
+.details .content{
+padding:10px 12px 12px;
+font-size:12.6px;
+line-height:1.6;
+color:var(--ink);
+background:#fff;
+}
+.kv{
+display:grid;
+grid-template-columns:1fr;
+gap:8px;
+}
+.kv .row{
+border:1px solid var(--line);
+border-radius:10px;
+padding:10px;
+background:#fff;
+}
+.kv .row .k{
 font-size:12px;
 color:var(--muted);
-margin-top:10px;
+margin-bottom:3px;
+}
+.kv .row .v{
+font-size:12.8px;
+color:var(--ink);
+}
+
+.footer{
+text-align:center;
+margin-top:12px;
+font-size:12px;
+color:var(--muted);
 }
 </style>
 </head>
@@ -115,104 +232,248 @@ margin-top:10px;
 <body>
 <div class="wrap">
 
-<h1>كيف يؤثر اكتمال سجل الأورام؟</h1>
-
-<div class="card">
-<h2>مكوّنات السجل الورمي</h2>
-
-<div class="toggle">
-<label>مرحلة المرض (Stage)</label>
-<input type="checkbox" checked id="stage">
+<div class="header">
+<h1>تجربة تفاعلية: اكتمال سجل الأورام يغيّر ما يمكن تعلّمه</h1>
+<p>اختر/ألغِ العناصر وشاهد كيف يتأثر: ظهور النمط، قوة التحليل، وإمكانية الاستنتاج.</p>
 </div>
 
-<div class="toggle">
-<label>المتابعة (Follow-up)</label>
-<input type="checkbox" checked id="follow">
-</div>
+<!-- 1) Data elements -->
+<section class="card" aria-label="عناصر البيانات">
+<h2>عناصر البيانات في السجل الورمي</h2>
 
 <div class="toggle">
-<label>التاريخ العائلي</label>
-<input type="checkbox" checked id="family">
+<label>
+مرحلة المرض (Stage)
+<small>تسمح بالمقارنة حسب شدة المرض</small>
+</label>
+<input type="checkbox" checked id="stage" />
 </div>
 
 <div class="toggle">
-<label>التدخين / عوامل الخطورة</label>
-<input type="checkbox" checked id="smoking">
-</div>
-</div>
-
-<div class="card">
-<h2>أثر اكتمال السجل</h2>
-<div id="impactBox" class="impact good">
-✔ سجل ورمي مكتمل → فهم أوضح للحالات
-</div>
+<label>
+المتابعة (Follow-up)
+<small>تُظهر النتيجة عبر الزمن (بقاء/انتكاس)</small>
+</label>
+<input type="checkbox" checked id="follow" />
 </div>
 
-<div class="card">
-<h2>كيف يظهر النمط؟</h2>
+<div class="toggle">
+<label>
+التاريخ العائلي للسرطان
+<small>يدعم فهم القابلية الوراثية والأنماط العائلية</small>
+</label>
+<input type="checkbox" checked id="family" />
+</div>
 
-<div id="patternGrid" class="pattern good">
+<div class="toggle">
+<label>
+التدخين / التعرضات
+<small>يربط المرض بعوامل خطورة سلوكية/مهنية/بيئية</small>
+</label>
+<input type="checkbox" checked id="smoking" />
+</div>
+
+<div class="badgeRow" id="badgeRow"></div>
+</section>
+
+<!-- 2) Overall impact -->
+<section class="card" aria-label="الأثر">
+<h2>الأثر المباشر لاكتمال البيانات</h2>
+<div id="impactBox" class="impact good">✔ البيانات مكتملة → تحليلات قوية قابلة للاستنتاج</div>
+
+<details class="details" open>
+<summary>
+<span>كيف يؤثر غياب كل عنصر؟</span>
+<span style="color:var(--muted);font-size:12px">تفاصيل</span>
+</summary>
+<div class="content">
+<div class="kv" id="perFactorBox"></div>
+</div>
+</details>
+</section>
+
+<!-- 3) Pattern visibility -->
+<section class="card" aria-label="النمط">
+<h2>كيف يكتشف السجل وجود نمط؟</h2>
+
+<div id="patternGrid" class="pattern good" aria-hidden="true">
 <span></span><span></span><span></span><span></span><span></span><span></span>
 <span></span><span></span><span></span><span></span><span></span><span></span>
 </div>
 
-<div id="patternText" class="impact good">
-✔ البيانات مكتملة → النمط يصبح مرئيًا
-</div>
+<div id="patternText" class="impact good">✔ البيانات موحّدة ومكتملة → الحالات تنتظم ويظهر نمط واضح</div>
+</section>
+
+<!-- 4) Practice change example (light but detailed) -->
+<section class="card" id="practiceCard" style="display:none" aria-label="مثال تغيير ممارسة">
+<h2>مثال مبسّط: كيف تغيّر البيانات الممارسة؟</h2>
+
+<div class="impact good">
+✔ عند توفر <b>Stage</b> و<b>Follow-up</b> يمكن للسجل أن يثبت:
+<ul class="list">
+<li>هل النتائج أفضل في مرحلة/فئة معيّنة؟</li>
+<li>هل هناك تأخر متكرر في التشخيص لفئة محددة؟</li>
+<li>هل تغيّرت النتائج بعد تعديل مسار متابعة/فحص؟</li>
+</ul>
+<div class="hr"></div>
+<b>الخلاصة:</b> التغيير لا يُبنى على حالة واحدة… بل على <b>نمط متكرر</b> عبر سنوات.
 </div>
 
-<footer>
-أي نقص في السجل الورمي ينعكس مباشرة على الفهم
-</footer>
+<div class="impact warn" style="margin-top:8px">
+إذا غابت المتابعة أو المرحلة: يصبح الحديث عن “تحسن/تدهور” غير قابل للإثبات ببيانات السجل.
+</div>
+</section>
+
+<div class="footer">
+نقص البيانات لا يغيّر حالة المريض… لكنه يغيّر ما يمكن تعلّمه منها.
+</div>
 
 </div>
 
 <script>
-const stage = document.getElementById("stage");
-const follow = document.getElementById("follow");
-const family = document.getElementById("family");
-const smoking = document.getElementById("smoking");
+const els = {
+stage: document.getElementById("stage"),
+follow: document.getElementById("follow"),
+family: document.getElementById("family"),
+smoking: document.getElementById("smoking"),
+impactBox: document.getElementById("impactBox"),
+patternGrid: document.getElementById("patternGrid"),
+patternText: document.getElementById("patternText"),
+practiceCard: document.getElementById("practiceCard"),
+perFactorBox: document.getElementById("perFactorBox"),
+badgeRow: document.getElementById("badgeRow"),
+};
 
-const impactBox = document.getElementById("impactBox");
-const patternGrid = document.getElementById("patternGrid");
-const patternText = document.getElementById("patternText");
+const FACTORS = [
+{
+key: "stage",
+title: "Stage",
+whenMissing: "غياب المرحلة يمنع المقارنة حسب شدة المرض.",
+blocks: [
+{k:"يمنع", v:"مقارنة النتائج بين المراحل (مبكر/متقدم)"},
+{k:"يضعف", v:"تفسير اختلاف النتائج بين مجموعات المرضى"},
+{k:"ينتج عنه", v:"تحليل غير قابل للضبط (Confounding أعلى)"}
+]
+},
+{
+key: "follow",
+title: "Follow-up",
+whenMissing: "غياب المتابعة يمنع التحليل الزمني للنتائج.",
+blocks: [
+{k:"يمنع", v:"تحليل البقاء/الانتكاس/النجاة طويلة المدى"},
+{k:"يضعف", v:"تقييم أثر العلاج عبر الزمن"},
+{k:"ينتج عنه", v:"قصة غير مكتملة → لا دليل على “تحسن/تدهور”"}
+]
+},
+{
+key: "family",
+title: "التاريخ العائلي",
+whenMissing: "غياب التاريخ العائلي يحد من فهم القابلية الوراثية.",
+blocks: [
+{k:"يمنع", v:"دراسة الأنماط العائلية والقابلية الوراثية"},
+{k:"يضعف", v:"توجيه التوعية أو الإحالة للاستشارة الوراثية (على مستوى النمط)"},
+{k:"ينتج عنه", v:"فقدان فرص كشف مبكر في العائلة على مستوى الصحة العامة"}
+]
+},
+{
+key: "smoking",
+title: "التدخين/التعرضات",
+whenMissing: "غياب التدخين/التعرضات يحد من ربط المرض بعوامل الخطورة.",
+blocks: [
+{k:"يمنع", v:"تحليل علاقة المرض بعامل خطر سلوكي/مهني/بيئي"},
+{k:"يضعف", v:"تصميم تدخلات وقائية مستهدفة"},
+{k:"ينتج عنه", v:"صورة ناقصة عن مسببات محتملة قابلة للتقليل"}
+]
+},
+];
+
+function setBadges(missingKeys){
+els.badgeRow.innerHTML = "";
+if(missingKeys.length === 0){
+const b = document.createElement("span");
+b.className = "badge";
+b.textContent = "الحالة: مكتملة";
+els.badgeRow.appendChild(b);
+return;
+}
+const b1 = document.createElement("span");
+b1.className = "badge";
+b1.textContent = "الحالة: ناقصة";
+els.badgeRow.appendChild(b1);
+
+missingKeys.forEach(k=>{
+const f = FACTORS.find(x=>x.key===k);
+const b = document.createElement("span");
+b.className = "badge";
+b.textContent = "ناقص: " + (f ? f.title : k);
+els.badgeRow.appendChild(b);
+});
+}
+
+function setPerFactor(missingKeys){
+els.perFactorBox.innerHTML = "";
+FACTORS.forEach(f=>{
+const isMissing = missingKeys.includes(f.key);
+const row = document.createElement("div");
+row.className = "row";
+row.innerHTML = `
+<div class="k">${isMissing ? "✖ غائب" : "✔ متوفر"} — ${f.title}</div>
+<div class="v">${isMissing ? f.whenMissing : "متوفر → يدعم التحليل ويزيد قوة الاستنتاج."}</div>
+`;
+els.perFactorBox.appendChild(row);
+
+if(isMissing){
+f.blocks.forEach(b=>{
+const sub = document.createElement("div");
+sub.className = "row";
+sub.innerHTML = `<div class="k">${b.k}</div><div class="v">${b.v}</div>`;
+els.perFactorBox.appendChild(sub);
+});
+}
+});
+}
 
 function updateAll(){
-let missing = 0;
-if(!stage.checked) missing++;
-if(!follow.checked) missing++;
-if(!family.checked) missing++;
-if(!smoking.checked) missing++;
+const missingKeys = FACTORS
+.filter(f => !els[f.key].checked)
+.map(f => f.key);
 
+const missing = missingKeys.length;
+
+// Overall impact
 if(missing === 0){
-impactBox.className = "impact good";
-impactBox.innerHTML = "✔ سجل ورمي مكتمل → فهم أوضح للحالات";
-patternGrid.className = "pattern good";
-patternText.className = "impact good";
-patternText.innerHTML = "✔ البيانات مكتملة → النمط يصبح مرئيًا";
-}
-else if(missing <=2){
-impactBox.className = "impact warn";
-impactBox.innerHTML = "⚠ سجل ورمي غير مكتمل → فهم محدود";
-patternGrid.className = "pattern warn";
-patternText.className = "impact warn";
-patternText.innerHTML = "⚠ النمط غير مكتمل ويحتاج حذر";
-}
-else{
-impactBox.className = "impact bad";
-impactBox.innerHTML = "✖ سجل ورمي ناقص → لا يمكن الاستنتاج";
-patternGrid.className = "pattern bad";
-patternText.className = "impact bad";
-patternText.innerHTML = "✖ لا يظهر نمط قابل للفهم";
-}
+els.impactBox.className = "impact good";
+els.impactBox.innerHTML = "✔ البيانات مكتملة → تحليلات قوية قابلة للاستنتاج";
+els.patternGrid.className = "pattern good";
+els.patternText.className = "impact good";
+els.patternText.innerHTML = "✔ البيانات موحّدة ومكتملة → الحالات تنتظم ويظهر نمط واضح";
+} else if(missing <= 2){
+els.impactBox.className = "impact warn";
+els.impactBox.innerHTML = "⚠ نقص جزئي → التحليل ممكن لكن محدود ويحتاج حذر";
+els.patternGrid.className = "pattern warn";
+els.patternText.className = "impact warn";
+els.patternText.innerHTML = "⚠ النمط يظهر بشكل جزئي → الاستنتاجات أقل قوة";
+} else {
+els.impactBox.className = "impact bad";
+els.impactBox.innerHTML = "✖ نقص جوهري → لا يمكن بناء استنتاج موثوق";
+els.patternGrid.className = "pattern bad";
+els.patternText.className = "impact bad";
+els.patternText.innerHTML = "✖ البيانات غير كافية → لا يظهر نمط قابل للفهم";
 }
 
-[stage, follow, family, smoking].forEach(el =>
+// Practice example: show only if Stage + Follow-up exist
+els.practiceCard.style.display = (els.stage.checked && els.follow.checked) ? "block" : "none";
+
+// Per factor detail + badges
+setPerFactor(missingKeys);
+setBadges(missingKeys);
+}
+
+[els.stage, els.follow, els.family, els.smoking].forEach(el =>
 el.addEventListener("change", updateAll)
 );
 
 updateAll();
 </script>
-
 </body>
 </html>
