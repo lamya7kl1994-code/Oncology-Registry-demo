@@ -100,21 +100,6 @@ background:repeating-linear-gradient(
 );
 }
 
-/* نسبة التراكم */
-.progress{
-margin-top:10px;
-height:10px;
-background:var(--line);
-border-radius:6px;
-overflow:hidden;
-}
-#progressFill{
-height:100%;
-width:0%;
-background:linear-gradient(to left,var(--lavender),var(--lavender-light));
-transition:.3s ease;
-}
-
 .impact{
 margin-top:10px;
 padding:10px;
@@ -131,7 +116,6 @@ line-height:1.6;
 .ok{color:#3f35a8}
 .miss{color:var(--warn)}
 
-/* فوتر أقوى */
 .footer{
 margin-top:20px;
 padding:14px;
@@ -173,7 +157,7 @@ color:var(--muted);
 </div>
 </div>
 
-<!-- المطوية -->
+<!-- المطوية (بدون أي تغيير نصي) -->
 <div class="card leaflet">
 <h2>المطوية التوعوية</h2>
 
@@ -214,17 +198,14 @@ color:var(--muted);
 </div>
 
 <div class="range-wrap">
-<label>نسبة اكتمال البيانات التراكمية:
-<strong><span id="percent">60%</span></strong>
+<label>عدد المرضى المتراكمين:
+<strong><span id="count">100</span></strong>
 </label>
-<input type="range" min="1" max="10" value="6" id="patients">
+<input type="range" min="10" max="500" step="10" value="100" id="patients">
 </div>
 
-<div class="progress"><div id="progressFill"></div></div>
 <div id="pattern" class="pattern-bar"></div>
-
 <div id="impact" class="impact"></div>
-<div id="detailedImpact" class="impact good"></div>
 </div>
 
 <div class="footer">
@@ -237,49 +218,53 @@ color:var(--muted);
 <script>
 const checks=["stage","follow","family","risk"].map(id=>document.getElementById(id));
 const slider=document.getElementById("patients");
-const percentLabel=document.getElementById("percent");
-const progressFill=document.getElementById("progressFill");
+const countLabel=document.getElementById("count");
 const pattern=document.getElementById("pattern");
 const impact=document.getElementById("impact");
-const detailed=document.getElementById("detailedImpact");
 
 function render(){
 const n=Number(slider.value);
-const percent=Math.round((n/10)*100);
-percentLabel.textContent=percent+"%";
-progressFill.style.width=percent+"%";
-
+countLabel.textContent=n;
 pattern.innerHTML="";
+
 const missing=checks.filter(c=>!c.checked).length;
 
+// نمط بصري ثابت (10 وحدات) يعكس التماسك لا النسبة
 for(let i=1;i<=10;i++){
 const s=document.createElement("span");
-s.className=i<=n?"complete":"missing";
+
+if(n < 50){
+s.className="missing";
+}
+else if(n < 150){
+s.className=i <= 4 ? "complete":"missing";
+}
+else if(n < 300){
+s.className=i <= 7 ? "complete":"missing";
+}
+else{
+s.className="complete";
+}
+
 pattern.appendChild(s);
 }
 
-impact.className="impact "+(missing>0?"warn":"good");
-impact.textContent=missing>0
-?`الأثر المباشر: اكتمال البيانات عند ${percent}%، ما زالت بعض الأنماط غير مكتملة.`
-:`الأثر المباشر: اكتمال البيانات بنسبة ${percent}% يسمح برؤية نمط صحي واضح.`;
-
-detailed.innerHTML="<strong>مساهمة كل معلومة:</strong>";
-const list=document.createElement("div");
-list.className="impact-list";
-
-[
-["stage","تحديد شدة المرض","غياب مرحلة المرض يضعف المقارنة"],
-["follow","فهم التغير مع الوقت","غياب المتابعة يمنع تقييم النتائج"],
-["family","كشف أنماط وراثية","غياب التاريخ العائلي يخفي الاستعداد"],
-["risk","ربط المرض بالعوامل","غياب عوامل الخطورة يحد من الفهم"]
-].forEach(([id,ok,miss])=>{
-const d=document.createElement("div");
-d.className="impact-item "+(document.getElementById(id).checked?"ok":"miss");
-d.textContent=document.getElementById(id).checked?"✓ "+ok:"⚠ "+miss;
-list.appendChild(d);
-});
-
-detailed.appendChild(list);
+if(n < 50){
+impact.className="impact warn";
+impact.textContent="الأثر المباشر: عدد الحالات محدود جدًا — لا يمكن رؤية أي نمط.";
+}
+else if(n < 150){
+impact.className="impact warn";
+impact.textContent="الأثر المباشر: يبدأ تكرار ملاحظات، لكن النمط غير مستقر.";
+}
+else if(n < 300){
+impact.className="impact good";
+impact.textContent="الأثر المباشر: يتكوّن نمط فعلي يمكن ملاحظته.";
+}
+else{
+impact.className="impact good";
+impact.textContent="الأثر المباشر: نمط واضح ومتكرر ناتج عن تراكم كافٍ من الحالات.";
+}
 }
 
 checks.forEach(c=>c.addEventListener("change",render));
