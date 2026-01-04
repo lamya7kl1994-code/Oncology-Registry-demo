@@ -29,13 +29,9 @@ background:var(--bg);
 color:var(--ink);
 }
 
-.wrap{
-max-width:560px;
-margin:0 auto;
-padding:14px;
-}
+.wrap{max-width:560px;margin:0 auto;padding:14px}
 
-.header, .card{
+.header,.card{
 background:var(--card);
 border-radius:var(--radius);
 box-shadow:var(--shadow);
@@ -66,14 +62,8 @@ margin:8px 0;
 .toggle label{font-size:13px}
 .toggle small{display:block;font-size:11.5px;color:var(--muted)}
 
-.range-wrap{
-margin:14px 0;
-}
-.range-wrap label{
-font-size:13px;
-display:block;
-margin-bottom:6px;
-}
+.range-wrap{margin:14px 0}
+.range-wrap label{font-size:13px;display:block;margin-bottom:6px}
 input[type=range]{width:100%}
 
 .pattern-bar{
@@ -86,8 +76,7 @@ margin-top:12px;
 flex:1;
 height:20px;
 border-radius:6px;
-background:var(--lavender-light);
-transition:.4s ease;
+transition:.3s ease;
 }
 
 .pattern-bar span.complete{
@@ -99,19 +88,19 @@ background:repeating-linear-gradient(
 45deg,
 #eceaf8,
 #eceaf8 6px,
-#cfcaf3 6px,
-#cfcaf3 12px
+#ffffff 6px,
+#ffffff 12px
 );
-opacity:.6;
 }
 
 .impact{
-margin-top:12px;
+margin-top:10px;
 padding:10px;
 border-radius:10px;
 font-size:13px;
 line-height:1.6;
 }
+
 .good{background:#ecebfb;color:#3f35a8}
 .warn{background:#fff4e5;color:var(--warn)}
 .bad{background:#fdecea;color:var(--bad)}
@@ -121,11 +110,7 @@ border:1px solid var(--line);
 border-radius:12px;
 margin-top:12px;
 }
-summary{
-padding:10px;
-cursor:pointer;
-font-size:13px;
-}
+summary{padding:10px;cursor:pointer;font-size:13px}
 details p{padding:10px}
 
 .footer{
@@ -189,16 +174,17 @@ margin-top:14px;
 
 <div id="pattern" class="pattern-bar"></div>
 
+<!-- الأثر المباشر -->
 <div id="impact" class="impact"></div>
 </div>
 
 <details>
-<summary>كيف يتحول هذا إلى أثر صحي؟</summary>
+<summary>كيف يتحول هذا إلى أثر صحي بعيد المدى؟</summary>
 <p>
 عند اكتمال البيانات عبر عدد كافٍ من المرضى،
-تظهر أنماط واضحة وقابلة للاستنتاج،
+تظهر أنماط قابلة للاستنتاج،
 تُستخدم لدعم الأبحاث،
-تقييم الممارسات،
+تقييم الممارسات الطبية،
 وتحسين السياسات الصحية المبنية على الأدلة.
 </p>
 </details>
@@ -223,28 +209,37 @@ return checks.every(c=>c.checked);
 function render(){
 const n = Number(slider.value);
 countLabel.textContent = n;
-pattern.innerHTML="";
+pattern.innerHTML = "";
 
-for(let i=1;i<=10;i++){
-if(i>n) continue;
-const s=document.createElement("span");
-if(dataComplete()) s.classList.add("complete");
-else s.classList.add("missing");
+for(let i=1;i<=n;i++){
+const s = document.createElement("span");
+
+if(dataComplete()){
+s.className = "complete";
+} else {
+// تناوب: واحد مكتمل، واحد ناقص
+s.className = (i % 2 === 0) ? "missing" : "complete";
+}
+
 pattern.appendChild(s);
 }
 
 if(!dataComplete()){
-impact.className="impact warn";
-impact.textContent="بعض البيانات مفقودة → النمط متقطع ولا يمكن الاعتماد عليه علميًا";
-}else if(n<4){
-impact.className="impact warn";
-impact.textContent="البيانات مكتملة لكن العدد قليل → قوة الاستنتاج ضعيفة";
-}else if(n<7){
-impact.className="impact good";
-impact.textContent="البيانات مكتملة → النمط يبدأ بالظهور";
-}else{
-impact.className="impact good";
-impact.textContent="بيانات مكتملة + عدد كافٍ → نمط واضح وتحليل موثوق";
+impact.className = "impact warn";
+impact.textContent =
+"الأثر المباشر: البيانات جزئية → النمط متقطع ولا يمكن الاعتماد عليه في استنتاج علمي.";
+} else if(n < 4){
+impact.className = "impact warn";
+impact.textContent =
+"الأثر المباشر: البيانات مكتملة لكن عدد المرضى غير كافٍ → قوة التحليل محدودة.";
+} else if(n < 7){
+impact.className = "impact good";
+impact.textContent =
+"الأثر المباشر: البيانات مكتملة → النمط يبدأ بالظهور ويمكن التحليل بحذر.";
+} else {
+impact.className = "impact good";
+impact.textContent =
+"الأثر المباشر: بيانات مكتملة وعدد كافٍ من المرضى → نمط واضح وتحليل موثوق.";
 }
 }
 
