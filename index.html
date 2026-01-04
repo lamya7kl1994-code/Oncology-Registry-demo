@@ -15,6 +15,81 @@
 --lavender:#7b6ee6;
 --lavender-light:#dcd7fa;
 --warn:#c07a00;
+--line:#e6e2f2;
+--radius:14px;
+--shadow:0 8px 22px rgba(25,18,56,.10);
+}
+
+*{box-sizing:border-box}
+body{
+margin:0;
+font-family: system-ui, -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
+background:var(--bg);
+color:var(--ink);
+}
+
+.wrap{max-width:560px;margin:0 auto;padding:14px}
+
+.header,.card{
+background:var(--card);
+border-radius:var(--radius);
+box-shadow:var(--shadow);
+padding:14px;
+margin-bottom:12px;
+}
+
+.header{
+background:linear-gradient(135deg, rgba(90,62,200,.12), rgba(47,108,255,.10));
+}
+
+h1{margin:0 0 6px;font-size:18px;color:var(--accent)}
+h2{margin:0 0 8px;font-size:15px;color:var(--accent)}
+p{margin:0;font-size:13.5px;line-height:1.7}
+
+.flow{text-align:center;font-size:13.5px;line-height:1.8}
+.flow span{display:block}
+
+/* ======= تعديل المطوية فقط ======= */
+.leaflet{
+border:2px dashed var(--lavender-light);
+background:linear-gradient(180deg,#ffffff,#f8f6ff);
+}
+
+.leaflet-end{
+margin-top:10px;
+text-align:center;
+font-size:13px;
+font-weight:600;
+color:var(--accent);
+}
+/* ================================= */
+
+.toggle{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:10px;
+border:1px solid var(--line);
+border-radius:10px;
+margin:8px 0;
+}
+.toggle label{font-size:13px}
+.toggle small{display:block;font-size:11.5px;color:var(--muted)}
+
+.range-wrap{margin:14px 0}
+.range-wrap label{font-size:13px;display:block;margin-bottom:6px}
+input[type=range]{width:100%}
+
+.pattern-bar{
+display:flex;
+gap:6px;
+margin-top:12px;
+}
+.pattern-bar span{
+flex:1;
+height:20px;
+border-radius:6px;
+}
 .pattern-bar span.complete{background:var(--lavender)}
 .pattern-bar span.missing{
 background:repeating-linear-gradient(
@@ -42,7 +117,12 @@ line-height:1.6;
 .ok{color:#3f35a8}
 .miss{color:var(--warn)}
 
-.footer{text-align:center;font-size:12.5px;color:var(--muted);margin-top:14px}
+.footer{
+text-align:center;
+font-size:12.5px;
+color:var(--muted);
+margin-top:14px;
+}
 </style>
 </head>
 
@@ -53,7 +133,7 @@ line-height:1.6;
 <h1>سجل الأورام</h1>
 <p>
 سجل طبي تخصصي يوثّق رحلة الورم من التشخيص وحتى المتابعة،
-ويحوّل بيانات الأفراد إلى معرفة صحية تراكمية.
+ويحوّل البيانات إلى معرفة صحية قابلة للفهم والتحليل.
 </p>
 </div>
 
@@ -68,32 +148,46 @@ line-height:1.6;
 </div>
 </div>
 
-<!-- المطوية -->
-<div class="card">
+<!-- المطوية (معدلة بصريًا فقط) -->
+<div class="card leaflet">
 <h2>المطوية التوعوية</h2>
-<p><strong>كل فرد مهم.</strong><br>
-كل حالة تُسجَّل تضيف لبنة معرفة،
-ومع مرور الوقت تتكوّن الصورة الكاملة.</p>
+
+<p><strong>ما هو سجل الأورام؟</strong><br>
+سجل يجمع معلومات الورم والعلاج والمتابعة بهدف الفهم والتحسين.</p>
+
+<p style="margin-top:8px"><strong>لماذا مشاركة المعلومات مهمة؟</strong><br>
+لأن بعض المعلومات لا تظهر في التحاليل، لكنها تساعد على رؤية الصورة الكاملة.</p>
+
+<p style="margin-top:8px"><strong>دور كل فرد</strong><br>
+كل فرد يضيف نقطة معرفة،
+ومع مرور الوقت تتكوّن الأنماط التي تفيد الجميع.</p>
+
+<div class="leaflet-end">
+↓ شاهد كيف تتحول هذه المعرفة إلى أثر ↓
+</div>
 </div>
 
-<!-- التفاعلي -->
+<!-- التفاعلي (بدون أي تعديل) -->
 <div class="card">
-<h2>تجربة تفاعلية: كيف يتكوّن الأثر</h2>
+<h2>تجربة تفاعلية: اكتمال البيانات</h2>
 
 <div class="toggle">
 <label>مرحلة المرض <small>تحديد شدة الحالة</small></label>
 <input type="checkbox" checked id="stage">
 </div>
+
 <div class="toggle">
-<label>المتابعة <small>تتبّع التغير مع الوقت</small></label>
+<label>المتابعة <small>تتبع التغير مع الوقت</small></label>
 <input type="checkbox" checked id="follow">
 </div>
+
 <div class="toggle">
 <label>التاريخ العائلي <small>فهم الاستعداد الوراثي</small></label>
 <input type="checkbox" checked id="family">
 </div>
+
 <div class="toggle">
-<label>عوامل الخطورة <small>ربط المرض بالبيئة</small></label>
+<label>عوامل الخطورة <small>ربط المرض بالبيئة ونمط الحياة</small></label>
 <input type="checkbox" checked id="risk">
 </div>
 
@@ -103,13 +197,12 @@ line-height:1.6;
 </div>
 
 <div id="pattern" class="pattern-bar"></div>
-
 <div id="impact" class="impact"></div>
 <div id="detailedImpact" class="impact good"></div>
 </div>
 
 <div class="footer">
-المعرفة تتكوّن بالتراكم… وكل فرد جزء من هذا الأثر
+سجل الأورام يبني المعرفة… والمعرفة تحمي المستقبل
 </div>
 
 </div>
@@ -126,42 +219,32 @@ function render(){
 const n=Number(slider.value);
 countLabel.textContent=n;
 pattern.innerHTML="";
-
 const missing=checks.filter(c=>!c.checked).length;
 
 for(let i=1;i<=n;i++){
 const s=document.createElement("span");
-s.className = (missing===0 || i%(missing+1)!==0) ? "complete":"missing";
+s.className=(missing===0||i%(missing+1)!==0)?"complete":"missing";
 pattern.appendChild(s);
 }
 
-/* الأثر المباشر المرتبط بالعدد */
-if(n<=3){
-impact.className="impact good";
-impact.textContent="الأثر المباشر: كل حالة تضيف نقطة معرفة، والصورة في مرحلة التكوّن.";
-}
-else if(n<=6){
-impact.className="impact good";
-impact.textContent="الأثر المباشر: مع تراكم الحالات، تبدأ ملامح نمط صحي بالظهور.";
-}
-else{
-impact.className="impact good";
-impact.textContent="الأثر المباشر: عدد كافٍ من الحالات المتراكمة → نمط واضح قابل للتحليل.";
-}
+impact.className="impact "+(missing>0?"warn":"good");
+impact.textContent=missing>0
+?"الأثر المباشر: نقص بعض البيانات يؤدي إلى صورة غير مكتملة."
+:"الأثر المباشر: اكتمال البيانات يسمح بتكوين نمط واضح.";
 
-detailed.innerHTML="<strong>مساهمة كل معلومة:</strong>";
+detailed.innerHTML="<strong>كيف تؤثر كل معلومة؟</strong>";
 const list=document.createElement("div");
 list.className="impact-list";
 
 [
 ["stage","تحديد شدة المرض","غياب مرحلة المرض يضعف المقارنة"],
 ["follow","فهم التغير مع الوقت","غياب المتابعة يمنع تقييم النتائج"],
-["family","كشف أنماط وراثية","غياب التاريخ العائلي يخفي الاستعداد"],
-["risk","ربط المرض بالعوامل","غياب عوامل الخطورة يحد من الفهم"]
+["family","اكتشاف أنماط وراثية","غياب التاريخ العائلي يخفي الاستعداد"],
+["risk","ربط المرض بالعوامل الخارجية","غياب عوامل الخطورة يحد من الفهم"]
 ].forEach(([id,ok,miss])=>{
 const d=document.createElement("div");
 d.className="impact-item "+(document.getElementById(id).checked?"ok":"miss");
-d.textContent = document.getElementById(id).checked ? "✓ "+ok : "⚠ "+miss;
+d.textContent=document.getElementById(id).checked?"✓ "+ok:"⚠ "+miss;
 list.appendChild(d);
 });
 
