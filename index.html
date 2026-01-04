@@ -78,9 +78,7 @@ height:20px;
 border-radius:6px;
 transition:.3s ease;
 }
-
 .pattern-bar span.complete{background:var(--lavender)}
-
 .pattern-bar span.missing{
 background:repeating-linear-gradient(
 45deg,
@@ -98,10 +96,20 @@ border-radius:10px;
 font-size:13px;
 line-height:1.6;
 }
-
 .good{background:#ecebfb;color:#3f35a8}
 .warn{background:#fff4e5;color:var(--warn)}
-.bad{background:#fdecea;color:var(--bad)}
+
+.impact-list{
+margin-top:8px;
+font-size:13px;
+}
+.impact-item{
+padding:6px 0;
+border-bottom:1px dashed var(--line);
+}
+.impact-item:last-child{border-bottom:none}
+.ok{color:#3f35a8}
+.miss{color:var(--warn)}
 
 details{
 border:1px solid var(--line);
@@ -127,7 +135,7 @@ margin-top:14px;
 <h1>سجل الأورام</h1>
 <p>
 سجل طبي تخصصي يوثّق رحلة الورم من التشخيص وحتى المتابعة،
-ويحوّل البيانات إلى معرفة صحية قابلة للتحليل وصناعة الأثر.
+ويحوّل البيانات إلى معرفة صحية قابلة للفهم والتحليل.
 </p>
 </div>
 
@@ -142,149 +150,122 @@ margin-top:14px;
 </div>
 </div>
 
-<!-- المطوية التوعوية -->
+<!-- المطوية -->
 <div class="card">
-<h2 سجل الأورام </h2>
+<h2>المطوية التوعوية</h2>
 
-<p>
-<strong>ما هو سجل الأورام؟</strong><br>
-سجل طبي تخصصي يُنشأ لكل مريض سرطان،
-يجمع بيانات الورم منذ التشخيص وحتى المتابعة
-بهدف الفهم والتحليل وليس تغيير العلاج.
-</p>
+<p><strong>ما هو سجل الأورام؟</strong><br>
+سجل يجمع معلومات الورم والعلاج والمتابعة بهدف الفهم والتحسين.</p>
 
-<p style="margin-top:8px">
-<strong>لماذا دقة البيانات مهمة؟</strong><br>
-كل معلومة دقيقة ترفع جودة التحليل،
-والبيانات الناقصة تؤدي إلى معرفة ناقصة
-ونتائج لا يمكن الاعتماد عليها.
-</p>
+<p style="margin-top:8px"><strong>لماذا مشاركة المعلومات مهمة؟</strong><br>
+لأن بعض المعلومات لا تظهر في التحاليل، لكنها تساعد على رؤية الصورة الكاملة.</p>
 
-<p style="margin-top:8px">
-<strong>ما الذي يملكه المريض من معلومات؟</strong><br>
-التاريخ العائلي، التدخين، والعمل والتعرضات
-معلومات لا تظهر في التحاليل
-لكنها تصنع فرقًا حقيقيًا في الفهم.
-</p>
-
-<p style="margin-top:8px">
-<strong>كيف تتحول البيانات إلى أثر؟</strong><br>
-عند اكتمال البيانات عبر عدد من المرضى،
-تظهر أنماط تُستخدم في الأبحاث،
-وتحسين الممارسات الطبية المبنية على الأدلة.
-</p>
-
-<p style="margin-top:8px;color:var(--accent)">
-<strong>
-مريض واحد قد لا يغيّر الإحصائية،<br>
-لكن مع غيره… يصنع الأثر.
-</strong>
-</p>
+<p style="margin-top:8px"><strong>دور كل فرد</strong><br>
+كل فرد يضيف نقطة معرفة،
+ومع مرور الوقت تتكوّن الأنماط التي تفيد الجميع.</p>
 </div>
 
+<!-- التفاعلي -->
 <div class="card">
 <h2>تجربة تفاعلية: اكتمال البيانات</h2>
 
 <div class="toggle">
-<label>مرحلة المرض <small>أساس المقارنة</small></label>
+<label>مرحلة المرض <small>تحديد شدة الحالة</small></label>
 <input type="checkbox" checked id="stage">
 </div>
 
 <div class="toggle">
-<label>المتابعة <small>قياس النتيجة عبر الزمن</small></label>
+<label>المتابعة <small>تتبع التغير مع الوقت</small></label>
 <input type="checkbox" checked id="follow">
 </div>
 
 <div class="toggle">
-<label>التاريخ العائلي <small>كشف الأنماط الوراثية</small></label>
+<label>التاريخ العائلي <small>فهم الاستعداد الوراثي</small></label>
 <input type="checkbox" checked id="family">
 </div>
 
 <div class="toggle">
-<label>عوامل الخطورة <small>ربط المرض بالتعرضات</small></label>
+<label>عوامل الخطورة <small>ربط المرض بالبيئة ونمط الحياة</small></label>
 <input type="checkbox" checked id="risk">
 </div>
 
 <div class="range-wrap">
-<label>عدد المرضى في التحليل: <strong><span id="count">6</span></strong></label>
+<label>عدد الحالات المتراكمة: <strong><span id="count">6</span></strong></label>
 <input type="range" min="1" max="10" value="6" id="patients">
 </div>
 
 <div id="pattern" class="pattern-bar"></div>
+
 <div id="impact" class="impact"></div>
+<div id="detailedImpact" class="impact good"></div>
 </div>
 
 <details>
-<summary>كيف يتحول هذا إلى أثر صحي بعيد المدى؟</summary>
+<summary>الأثر بعيد المدى</summary>
 <p>
-عند اكتمال البيانات عبر عدد كافٍ من المرضى،
-تظهر أنماط قابلة للاستنتاج،
-تُستخدم لدعم الأبحاث،
-تقييم الممارسات الطبية،
-وتحسين السياسات الصحية المبنية على الأدلة.
+مع تراكم البيانات عبر السنوات،
+يمكن تحسين التخطيط الصحي،
+دعم الأبحاث،
+وتطوير الممارسات الطبية المبنية على الأدلة.
 </p>
 </details>
 
 <div class="footer">
-سجل الأورام لا يصنع القرار… لكنه يصنع الأساس العلمي له
+سجل الأورام يبني المعرفة… والمعرفة تحمي المستقبل
 </div>
 
 </div>
 
 <script>
-const checks = ["stage","follow","family","risk"].map(id=>document.getElementById(id));
-const slider = document.getElementById("patients");
-const countLabel = document.getElementById("count");
-const pattern = document.getElementById("pattern");
-const impact = document.getElementById("impact");
-
-function missingCount(){
-return checks.filter(c => !c.checked).length;
-}
+const checks=["stage","follow","family","risk"].map(id=>document.getElementById(id));
+const slider=document.getElementById("patients");
+const countLabel=document.getElementById("count");
+const pattern=document.getElementById("pattern");
+const impact=document.getElementById("impact");
+const detailed=document.getElementById("detailedImpact");
 
 function render(){
-const n = Number(slider.value);
-const missing = missingCount();
-countLabel.textContent = n;
-pattern.innerHTML = "";
+const n=Number(slider.value);
+countLabel.textContent=n;
+pattern.innerHTML="";
 
-for(let i = 1; i <= n; i++){
-const s = document.createElement("span");
-if(missing === 0){
-s.className = "complete";
-} else {
-s.className = (i % (missing + 1) === 0) ? "missing" : "complete";
-}
+const missing=checks.filter(c=>!c.checked).length;
+
+for(let i=1;i<=n;i++){
+const s=document.createElement("span");
+s.className = (missing===0 || i%(missing+1)!==0) ? "complete":"missing";
 pattern.appendChild(s);
 }
 
-if(missing > 0){
-impact.className = "impact warn";
+impact.className="impact "+(missing>0?"warn":"good");
 impact.textContent =
-"الأثر المباشر: بعض عناصر البيانات غير متوفرة → النمط متقطع ولا يمكن الاعتماد عليه علميًا.";
-}
-else if(n < 4){
-impact.className = "impact warn";
-impact.textContent =
-"الأثر المباشر: البيانات مكتملة لكن عدد المرضى قليل → التحليل وصفي وقوة الاستنتاج ضعيفة.";
-}
-else if(n < 7){
-impact.className = "impact good";
-impact.textContent =
-"الأثر المباشر: البيانات مكتملة → يبدأ ظهور نمط قابل للتحليل مع الحاجة لمزيد من الحالات.";
-}
-else{
-impact.className = "impact good";
-impact.textContent =
-"الأثر المباشر: بيانات مكتملة وعدد كافٍ من المرضى → نمط واضح وتحليل موثوق يدعم الأبحاث وتغيير الممارسة.";
-}
+missing>0
+? "الأثر المباشر: نقص بعض البيانات يؤدي إلى صورة غير مكتملة."
+: "الأثر المباشر: اكتمال البيانات يسمح بتكوين نمط واضح.";
+
+detailed.innerHTML="<strong>كيف تؤثر كل معلومة؟</strong>";
+const list=document.createElement("div");
+list.className="impact-list";
+
+[
+["stage","تحديد شدة المرض","غياب مرحلة المرض يضعف المقارنة"],
+["follow","فهم التغير مع الوقت","غياب المتابعة يمنع تقييم النتائج"],
+["family","اكتشاف أنماط وراثية","غياب التاريخ العائلي يخفي الاستعداد"],
+["risk","ربط المرض بالعوامل الخارجية","غياب عوامل الخطورة يحد من الفهم"]
+].forEach(([id,ok,miss])=>{
+const d=document.createElement("div");
+d.className="impact-item "+(document.getElementById(id).checked?"ok":"miss");
+d.textContent = document.getElementById(id).checked ? "✓ "+ok : "⚠ "+miss;
+list.appendChild(d);
+});
+
+detailed.appendChild(list);
 }
 
-checks.forEach(c => c.addEventListener("change", render));
-slider.addEventListener("input", render);
+checks.forEach(c=>c.addEventListener("change",render));
+slider.addEventListener("input",render);
 render();
 </script>
 
 </body>
 </html>
-
