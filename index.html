@@ -79,9 +79,7 @@ border-radius:6px;
 transition:.3s ease;
 }
 
-.pattern-bar span.complete{
-background:var(--lavender);
-}
+.pattern-bar span.complete{background:var(--lavender)}
 
 .pattern-bar span.missing{
 background:repeating-linear-gradient(
@@ -144,6 +142,46 @@ margin-top:14px;
 </div>
 </div>
 
+<!-- المطوية التوعوية -->
+<div class="card">
+<h2>المطوية التوعوية</h2>
+
+<p>
+<strong>ما هو سجل الأورام؟</strong><br>
+سجل طبي تخصصي يُنشأ لكل مريض سرطان،
+يجمع بيانات الورم منذ التشخيص وحتى المتابعة
+بهدف الفهم والتحليل وليس تغيير العلاج.
+</p>
+
+<p style="margin-top:8px">
+<strong>لماذا دقة البيانات مهمة؟</strong><br>
+كل معلومة دقيقة ترفع جودة التحليل،
+والبيانات الناقصة تؤدي إلى معرفة ناقصة
+ونتائج لا يمكن الاعتماد عليها.
+</p>
+
+<p style="margin-top:8px">
+<strong>ما الذي يملكه المريض من معلومات؟</strong><br>
+التاريخ العائلي، التدخين، والعمل والتعرضات
+معلومات لا تظهر في التحاليل
+لكنها تصنع فرقًا حقيقيًا في الفهم.
+</p>
+
+<p style="margin-top:8px">
+<strong>كيف تتحول البيانات إلى أثر؟</strong><br>
+عند اكتمال البيانات عبر عدد من المرضى،
+تظهر أنماط تُستخدم في الأبحاث،
+وتحسين الممارسات الطبية المبنية على الأدلة.
+</p>
+
+<p style="margin-top:8px;color:var(--accent)">
+<strong>
+مريض واحد قد لا يغيّر الإحصائية،<br>
+لكن مع غيره… يصنع الأثر.
+</strong>
+</p>
+</div>
+
 <div class="card">
 <h2>تجربة تفاعلية: اكتمال البيانات</h2>
 
@@ -173,8 +211,6 @@ margin-top:14px;
 </div>
 
 <div id="pattern" class="pattern-bar"></div>
-
-<!-- الأثر المباشر -->
 <div id="impact" class="impact"></div>
 </div>
 
@@ -202,49 +238,50 @@ const countLabel = document.getElementById("count");
 const pattern = document.getElementById("pattern");
 const impact = document.getElementById("impact");
 
-function dataComplete(){
-return checks.every(c=>c.checked);
+function missingCount(){
+return checks.filter(c => !c.checked).length;
 }
 
 function render(){
 const n = Number(slider.value);
+const missing = missingCount();
 countLabel.textContent = n;
 pattern.innerHTML = "";
 
-for(let i=1;i<=n;i++){
+for(let i = 1; i <= n; i++){
 const s = document.createElement("span");
-
-if(dataComplete()){
+if(missing === 0){
 s.className = "complete";
 } else {
-// تناوب: واحد مكتمل، واحد ناقص
-s.className = (i % 2 === 0) ? "missing" : "complete";
+s.className = (i % (missing + 1) === 0) ? "missing" : "complete";
 }
-
 pattern.appendChild(s);
 }
 
-if(!dataComplete()){
+if(missing > 0){
 impact.className = "impact warn";
 impact.textContent =
-"الأثر المباشر: البيانات جزئية → النمط متقطع ولا يمكن الاعتماد عليه في استنتاج علمي.";
-} else if(n < 4){
+"الأثر المباشر: بعض عناصر البيانات غير متوفرة → النمط متقطع ولا يمكن الاعتماد عليه علميًا.";
+}
+else if(n < 4){
 impact.className = "impact warn";
 impact.textContent =
-"الأثر المباشر: البيانات مكتملة لكن عدد المرضى غير كافٍ → قوة التحليل محدودة.";
-} else if(n < 7){
+"الأثر المباشر: البيانات مكتملة لكن عدد المرضى قليل → التحليل وصفي وقوة الاستنتاج ضعيفة.";
+}
+else if(n < 7){
 impact.className = "impact good";
 impact.textContent =
-"الأثر المباشر: البيانات مكتملة → النمط يبدأ بالظهور ويمكن التحليل بحذر.";
-} else {
+"الأثر المباشر: البيانات مكتملة → يبدأ ظهور نمط قابل للتحليل مع الحاجة لمزيد من الحالات.";
+}
+else{
 impact.className = "impact good";
 impact.textContent =
-"الأثر المباشر: بيانات مكتملة وعدد كافٍ من المرضى → نمط واضح وتحليل موثوق.";
+"الأثر المباشر: بيانات مكتملة وعدد كافٍ من المرضى → نمط واضح وتحليل موثوق يدعم الأبحاث وتغيير الممارسة.";
 }
 }
 
-checks.forEach(c=>c.addEventListener("change",render));
-slider.addEventListener("input",render);
+checks.forEach(c => c.addEventListener("change", render));
+slider.addEventListener("input", render);
 render();
 </script>
 
