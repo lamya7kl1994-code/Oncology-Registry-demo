@@ -49,12 +49,11 @@ p{margin:0;font-size:13.5px;line-height:1.7}
 .flow{text-align:center;font-size:13.5px;line-height:1.8}
 .flow span{display:block}
 
-/* ======= تعديل المطوية فقط ======= */
+/* المطوية */
 .leaflet{
 border:2px dashed var(--lavender-light);
 background:linear-gradient(180deg,#ffffff,#f8f6ff);
 }
-
 .leaflet-end{
 margin-top:10px;
 text-align:center;
@@ -62,8 +61,8 @@ font-size:13px;
 font-weight:600;
 color:var(--accent);
 }
-/* ================================= */
 
+/* التفاعلي */
 .toggle{
 display:flex;
 justify-content:space-between;
@@ -83,11 +82,11 @@ input[type=range]{width:100%}
 .pattern-bar{
 display:flex;
 gap:6px;
-margin-top:12px;
+margin-top:10px;
 }
 .pattern-bar span{
 flex:1;
-height:20px;
+height:18px;
 border-radius:6px;
 }
 .pattern-bar span.complete{background:var(--lavender)}
@@ -99,6 +98,21 @@ background:repeating-linear-gradient(
 #ffffff 6px,
 #ffffff 12px
 );
+}
+
+/* نسبة التراكم */
+.progress{
+margin-top:10px;
+height:10px;
+background:var(--line);
+border-radius:6px;
+overflow:hidden;
+}
+#progressFill{
+height:100%;
+width:0%;
+background:linear-gradient(to left,var(--lavender),var(--lavender-light));
+transition:.3s ease;
 }
 
 .impact{
@@ -117,11 +131,22 @@ line-height:1.6;
 .ok{color:#3f35a8}
 .miss{color:var(--warn)}
 
+/* فوتر أقوى */
 .footer{
+margin-top:20px;
+padding:14px;
+border-top:2px solid var(--lavender-light);
 text-align:center;
-font-size:12.5px;
+font-size:13px;
+color:var(--accent);
+font-weight:600;
+background:linear-gradient(180deg,#ffffff,#f3f1ff);
+}
+.footer small{
+display:block;
+margin-top:6px;
+font-weight:400;
 color:var(--muted);
-margin-top:14px;
 }
 </style>
 </head>
@@ -148,7 +173,7 @@ margin-top:14px;
 </div>
 </div>
 
-<!-- المطوية (معدلة بصريًا فقط) -->
+<!-- المطوية -->
 <div class="card leaflet">
 <h2>المطوية التوعوية</h2>
 
@@ -163,46 +188,48 @@ margin-top:14px;
 ومع مرور الوقت تتكوّن الأنماط التي تفيد الجميع.</p>
 
 <div class="leaflet-end">
-↓ شاهد كيف تتحول هذه المعرفة إلى أثر ↓
+↓ شاهد كيف يتحوّل هذا التراكم إلى أثر ↓
 </div>
 </div>
 
-<!-- التفاعلي (بدون أي تعديل) -->
+<!-- التفاعلي -->
 <div class="card">
-<h2>تجربة تفاعلية: اكتمال البيانات</h2>
+<h2>تجربة تفاعلية: كيف يتكوّن الأثر</h2>
 
 <div class="toggle">
 <label>مرحلة المرض <small>تحديد شدة الحالة</small></label>
 <input type="checkbox" checked id="stage">
 </div>
-
 <div class="toggle">
-<label>المتابعة <small>تتبع التغير مع الوقت</small></label>
+<label>المتابعة <small>تتبّع التغير مع الوقت</small></label>
 <input type="checkbox" checked id="follow">
 </div>
-
 <div class="toggle">
 <label>التاريخ العائلي <small>فهم الاستعداد الوراثي</small></label>
 <input type="checkbox" checked id="family">
 </div>
-
 <div class="toggle">
-<label>عوامل الخطورة <small>ربط المرض بالبيئة ونمط الحياة</small></label>
+<label>عوامل الخطورة <small>ربط المرض بالبيئة</small></label>
 <input type="checkbox" checked id="risk">
 </div>
 
 <div class="range-wrap">
-<label>عدد الحالات المتراكمة: <strong><span id="count">6</span></strong></label>
+<label>نسبة اكتمال البيانات التراكمية:
+<strong><span id="percent">60%</span></strong>
+</label>
 <input type="range" min="1" max="10" value="6" id="patients">
 </div>
 
+<div class="progress"><div id="progressFill"></div></div>
 <div id="pattern" class="pattern-bar"></div>
+
 <div id="impact" class="impact"></div>
 <div id="detailedImpact" class="impact good"></div>
 </div>
 
 <div class="footer">
-سجل الأورام يبني المعرفة… والمعرفة تحمي المستقبل
+المعرفة الصحية لا تُبنى بحالة واحدة
+<small>بل بتراكم بيانات كل فرد عبر الزمن</small>
 </div>
 
 </div>
@@ -210,37 +237,41 @@ margin-top:14px;
 <script>
 const checks=["stage","follow","family","risk"].map(id=>document.getElementById(id));
 const slider=document.getElementById("patients");
-const countLabel=document.getElementById("count");
+const percentLabel=document.getElementById("percent");
+const progressFill=document.getElementById("progressFill");
 const pattern=document.getElementById("pattern");
 const impact=document.getElementById("impact");
 const detailed=document.getElementById("detailedImpact");
 
 function render(){
 const n=Number(slider.value);
-countLabel.textContent=n;
+const percent=Math.round((n/10)*100);
+percentLabel.textContent=percent+"%";
+progressFill.style.width=percent+"%";
+
 pattern.innerHTML="";
 const missing=checks.filter(c=>!c.checked).length;
 
-for(let i=1;i<=n;i++){
+for(let i=1;i<=10;i++){
 const s=document.createElement("span");
-s.className=(missing===0||i%(missing+1)!==0)?"complete":"missing";
+s.className=i<=n?"complete":"missing";
 pattern.appendChild(s);
 }
 
 impact.className="impact "+(missing>0?"warn":"good");
 impact.textContent=missing>0
-?"الأثر المباشر: نقص بعض البيانات يؤدي إلى صورة غير مكتملة."
-:"الأثر المباشر: اكتمال البيانات يسمح بتكوين نمط واضح.";
+?`الأثر المباشر: اكتمال البيانات عند ${percent}%، ما زالت بعض الأنماط غير مكتملة.`
+:`الأثر المباشر: اكتمال البيانات بنسبة ${percent}% يسمح برؤية نمط صحي واضح.`;
 
-detailed.innerHTML="<strong>كيف تؤثر كل معلومة؟</strong>";
+detailed.innerHTML="<strong>مساهمة كل معلومة:</strong>";
 const list=document.createElement("div");
 list.className="impact-list";
 
 [
 ["stage","تحديد شدة المرض","غياب مرحلة المرض يضعف المقارنة"],
 ["follow","فهم التغير مع الوقت","غياب المتابعة يمنع تقييم النتائج"],
-["family","اكتشاف أنماط وراثية","غياب التاريخ العائلي يخفي الاستعداد"],
-["risk","ربط المرض بالعوامل الخارجية","غياب عوامل الخطورة يحد من الفهم"]
+["family","كشف أنماط وراثية","غياب التاريخ العائلي يخفي الاستعداد"],
+["risk","ربط المرض بالعوامل","غياب عوامل الخطورة يحد من الفهم"]
 ].forEach(([id,ok,miss])=>{
 const d=document.createElement("div");
 d.className="impact-item "+(document.getElementById(id).checked?"ok":"miss");
