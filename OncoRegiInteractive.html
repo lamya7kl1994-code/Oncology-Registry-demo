@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>سجل الأورام | تجربة تفاعلية</title>
+
+<style>
+:root{
+--bg:#f7f5fb;
+--card:#ffffff;
+--ink:#1f2330;
+--muted:#5b6174;
+--line:#e6e2f2;
+--accent:#5a3ec8;
+--good:#1f8a5f;
+--warn:#c07a00;
+--bad:#b3261e;
+--radius:14px;
+--shadow:0 8px 24px rgba(25,18,56,.10);
+}
+
+*{box-sizing:border-box}
+
+body{
+margin:0;
+font-family: system-ui, -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
+background:var(--bg);
+color:var(--ink);
+}
+
+.wrap{
+max-width:520px;
+margin:0 auto;
+padding:16px;
+}
+
+.card{
+background:var(--card);
+border-radius:var(--radius);
+padding:16px;
+box-shadow:var(--shadow);
+margin-bottom:14px;
+}
+
+h1{
+font-size:18px;
+margin:0 0 8px;
+color:var(--accent);
+text-align:center;
+}
+
+h2{
+font-size:15px;
+margin:0 0 10px;
+color:var(--accent);
+}
+
+.toggle{
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin:8px 0;
+padding:10px;
+border:1px solid var(--line);
+border-radius:10px;
+}
+
+.toggle label{font-size:14px}
+.toggle input{transform:scale(1.2)}
+
+.impact{
+margin-top:10px;
+padding:10px;
+border-radius:10px;
+font-size:13px;
+line-height:1.5;
+}
+
+.good{background:#e6f5ef;color:var(--good)}
+.warn{background:#fff4e5;color:var(--warn)}
+.bad{background:#fdecea;color:var(--bad)}
+
+.pattern{
+display:grid;
+grid-template-columns:repeat(6,1fr);
+gap:6px;
+margin:10px 0;
+}
+.pattern span{
+height:18px;
+border-radius:4px;
+background:#c9c3f3;
+}
+.pattern.warn span:nth-child(odd){opacity:.4}
+.pattern.bad{
+display:flex;
+flex-wrap:wrap;
+}
+.pattern.bad span{
+width:18px;
+margin:3px;
+background:#f2b8b5;
+}
+
+footer{
+text-align:center;
+font-size:12px;
+color:var(--muted);
+margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+<h1>كيف يؤثر اكتمال سجل الأورام؟</h1>
+
+<div class="card">
+<h2>مكوّنات السجل الورمي</h2>
+
+<div class="toggle">
+<label>مرحلة المرض (Stage)</label>
+<input type="checkbox" checked id="stage">
+</div>
+
+<div class="toggle">
+<label>المتابعة (Follow-up)</label>
+<input type="checkbox" checked id="follow">
+</div>
+
+<div class="toggle">
+<label>التاريخ العائلي</label>
+<input type="checkbox" checked id="family">
+</div>
+
+<div class="toggle">
+<label>التدخين / عوامل الخطورة</label>
+<input type="checkbox" checked id="smoking">
+</div>
+</div>
+
+<div class="card">
+<h2>أثر اكتمال السجل</h2>
+<div id="impactBox" class="impact good">
+✔ سجل ورمي مكتمل → فهم أوضح للحالات
+</div>
+</div>
+
+<div class="card">
+<h2>كيف يظهر النمط؟</h2>
+
+<div id="patternGrid" class="pattern good">
+<span></span><span></span><span></span><span></span><span></span><span></span>
+<span></span><span></span><span></span><span></span><span></span><span></span>
+</div>
+
+<div id="patternText" class="impact good">
+✔ البيانات مكتملة → النمط يصبح مرئيًا
+</div>
+</div>
+
+<footer>
+أي نقص في السجل الورمي ينعكس مباشرة على الفهم
+</footer>
+
+</div>
+
+<script>
+const stage = document.getElementById("stage");
+const follow = document.getElementById("follow");
+const family = document.getElementById("family");
+const smoking = document.getElementById("smoking");
+
+const impactBox = document.getElementById("impactBox");
+const patternGrid = document.getElementById("patternGrid");
+const patternText = document.getElementById("patternText");
+
+function updateAll(){
+let missing = 0;
+if(!stage.checked) missing++;
+if(!follow.checked) missing++;
+if(!family.checked) missing++;
+if(!smoking.checked) missing++;
+
+if(missing === 0){
+impactBox.className = "impact good";
+impactBox.innerHTML = "✔ سجل ورمي مكتمل → فهم أوضح للحالات";
+patternGrid.className = "pattern good";
+patternText.className = "impact good";
+patternText.innerHTML = "✔ البيانات مكتملة → النمط يصبح مرئيًا";
+}
+else if(missing <=2){
+impactBox.className = "impact warn";
+impactBox.innerHTML = "⚠ سجل ورمي غير مكتمل → فهم محدود";
+patternGrid.className = "pattern warn";
+patternText.className = "impact warn";
+patternText.innerHTML = "⚠ النمط غير مكتمل ويحتاج حذر";
+}
+else{
+impactBox.className = "impact bad";
+impactBox.innerHTML = "✖ سجل ورمي ناقص → لا يمكن الاستنتاج";
+patternGrid.className = "pattern bad";
+patternText.className = "impact bad";
+patternText.innerHTML = "✖ لا يظهر نمط قابل للفهم";
+}
+}
+
+[stage, follow, family, smoking].forEach(el =>
+el.addEventListener("change", updateAll)
+);
+
+updateAll();
+</script>
+
+</body>
+</html>
