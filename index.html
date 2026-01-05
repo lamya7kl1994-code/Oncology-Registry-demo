@@ -49,20 +49,20 @@ p{margin:0;font-size:13.5px;line-height:1.7}
 .flow{text-align:center;font-size:13.5px;line-height:1.8}
 .flow span{display:block}
 
-/* المطوية */
+/* ===== المطوية ===== */
 .leaflet{
 border:2px dashed var(--lavender-light);
 background:linear-gradient(180deg,#ffffff,#f8f6ff);
 }
 .leaflet-end{
-margin-top:10px;
+margin-top:12px;
 text-align:center;
 font-size:13px;
 font-weight:600;
 color:var(--accent);
 }
 
-/* التفاعلي */
+/* ===== التفاعلي ===== */
 .toggle{
 display:flex;
 justify-content:space-between;
@@ -110,12 +110,6 @@ line-height:1.6;
 .good{background:#ecebfb;color:#3f35a8}
 .warn{background:#fff4e5;color:var(--warn)}
 
-.impact-list{margin-top:8px;font-size:13px}
-.impact-item{padding:6px 0;border-bottom:1px dashed var(--line)}
-.impact-item:last-child{border-bottom:none}
-.ok{color:#3f35a8}
-.miss{color:var(--warn)}
-
 .footer{
 margin-top:20px;
 padding:14px;
@@ -142,7 +136,7 @@ color:var(--muted);
 <h1>سجل الأورام</h1>
 <p>
 سجل طبي تخصصي يوثّق رحلة الورم من التشخيص وحتى المتابعة،
-ويحوّل البيانات إلى معرفة صحية قابلة للفهم والتحليل.
+ويحوّل البيانات الفردية إلى معرفة صحية تراكمية.
 </p>
 </div>
 
@@ -157,22 +151,29 @@ color:var(--muted);
 </div>
 </div>
 
-<!-- المطوية (بدون أي تغيير نصي) -->
+<!-- المطوية (مستقلة ومكتملة) -->
 <div class="card leaflet">
 <h2>المطوية التوعوية</h2>
 
 <p><strong>ما هو سجل الأورام؟</strong><br>
-سجل يجمع معلومات الورم والعلاج والمتابعة بهدف الفهم والتحسين.</p>
+سجل صحي تخصصي يجمع بيانات تشخيص الورم، مسار العلاج، والاستجابة والمتابعة عبر الزمن،
+بهدف فهم كيف يظهر المرض ويتغير داخل المجتمع.</p>
 
-<p style="margin-top:8px"><strong>لماذا مشاركة المعلومات مهمة؟</strong><br>
-لأن بعض المعلومات لا تظهر في التحاليل، لكنها تساعد على رؤية الصورة الكاملة.</p>
+<p style="margin-top:10px"><strong>هل حالة واحدة تكفي؟</strong><br>
+لا. حالة واحدة لا تُظهر نمطًا،
+لكن تراكم الحالات يكشف التكرار، الاختلاف، والفروق بين المجموعات.</p>
 
-<p style="margin-top:8px"><strong>دور كل فرد</strong><br>
-كل فرد يضيف نقطة معرفة،
-ومع مرور الوقت تتكوّن الأنماط التي تفيد الجميع.</p>
+<p style="margin-top:10px"><strong>ما دور كل فرد؟</strong><br>
+كل فرد يُشكّل جزءًا من مجموعة أكبر.
+ومع الوقت، تتحول هذه الأجزاء إلى صورة واضحة تساعد على التخطيط الصحي
+وتحسين الرعاية المستقبلية.</p>
+
+<p style="margin-top:10px"><strong>ماذا يحدث عند غياب البيانات؟</strong><br>
+غياب المعلومات لا يؤثر على فرد واحد فقط،
+بل يضعف قدرة النظام الصحي على رؤية الواقع كما هو.</p>
 
 <div class="leaflet-end">
-↓ شاهد كيف يتحوّل هذا التراكم إلى أثر ↓
+المعرفة لا تظهر فورًا… بل تتكوّن بالتراكم
 </div>
 </div>
 
@@ -185,11 +186,11 @@ color:var(--muted);
 <input type="checkbox" checked id="stage">
 </div>
 <div class="toggle">
-<label>المتابعة <small>تتبّع التغير مع الوقت</small></label>
+<label>المتابعة <small>فهم التغير عبر الزمن</small></label>
 <input type="checkbox" checked id="follow">
 </div>
 <div class="toggle">
-<label>التاريخ العائلي <small>فهم الاستعداد الوراثي</small></label>
+<label>التاريخ العائلي <small>كشف الاستعداد الوراثي</small></label>
 <input type="checkbox" checked id="family">
 </div>
 <div class="toggle">
@@ -216,20 +217,21 @@ color:var(--muted);
 </div>
 
 <script>
-const checks=["stage","follow","family","risk"].map(id=>document.getElementById(id));
-const slider=document.getElementById("patients");
-const countLabel=document.getElementById("count");
-const pattern=document.getElementById("pattern");
-const impact=document.getElementById("impact");
+const checks = ["stage","follow","family","risk"].map(id=>document.getElementById(id));
+const slider = document.getElementById("patients");
+const countLabel = document.getElementById("count");
+const pattern = document.getElementById("pattern");
+const impact = document.getElementById("impact");
 
 function render(){
-const n=Number(slider.value);
-countLabel.textContent=n;
-pattern.innerHTML="";
+const n = Number(slider.value);
+countLabel.textContent = n;
+pattern.innerHTML = "";
 
-const missing=checks.filter(c=>!c.checked).length;
+const missing = checks.filter(c=>!c.checked).length;
+const completeness = 4 - missing;
 
-// نمط بصري ثابت (10 وحدات) يعكس التماسك لا النسبة
+// نمط بصري مفاهيمي (10 وحدات ثابتة)
 for(let i=1;i<=10;i++){
 const s=document.createElement("span");
 
@@ -237,33 +239,41 @@ if(n < 50){
 s.className="missing";
 }
 else if(n < 150){
-s.className=i <= 4 ? "complete":"missing";
+s.className = i <= 3 ? "complete":"missing";
 }
 else if(n < 300){
-s.className=i <= 7 ? "complete":"missing";
+s.className = i <= 6 ? "complete":"missing";
 }
 else{
 s.className="complete";
 }
-
 pattern.appendChild(s);
 }
 
+// منطق الأثر الحقيقي
 if(n < 50){
 impact.className="impact warn";
-impact.textContent="الأثر المباشر: عدد الحالات محدود جدًا — لا يمكن رؤية أي نمط.";
+impact.textContent =
+"الأثر المباشر: عدد الحالات غير كافٍ لرؤية أي نمط، مهما كانت جودة البيانات.";
 }
 else if(n < 150){
 impact.className="impact warn";
-impact.textContent="الأثر المباشر: يبدأ تكرار ملاحظات، لكن النمط غير مستقر.";
+impact.textContent =
+"الأثر المباشر: تظهر إشارات أولية، لكنها غير مستقرة ولا يمكن تعميمها.";
 }
 else if(n < 300){
-impact.className="impact good";
-impact.textContent="الأثر المباشر: يتكوّن نمط فعلي يمكن ملاحظته.";
+impact.className = completeness >= 3 ? "impact good":"impact warn";
+impact.textContent =
+completeness >= 3
+? "الأثر المباشر: يتكوّن نمط فعلي يمكن ملاحظته عند اكتمال أغلب المتغيرات."
+: "الأثر المباشر: العدد مناسب، لكن نقص بعض المتغيرات يضعف وضوح النمط.";
 }
 else{
-impact.className="impact good";
-impact.textContent="الأثر المباشر: نمط واضح ومتكرر ناتج عن تراكم كافٍ من الحالات.";
+impact.className = completeness >= 3 ? "impact good":"impact warn";
+impact.textContent =
+completeness >= 3
+? "الأثر المباشر: نمط واضح ومتكرر ناتج عن تراكم كافٍ واكتمال البيانات."
+: "الأثر المباشر: العدد كبير، لكن غياب متغيرات أساسية يحد من التفسير.";
 }
 }
 
