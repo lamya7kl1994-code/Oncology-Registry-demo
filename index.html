@@ -23,19 +23,19 @@
 *{box-sizing:border-box}
 body{
 margin:0;
-font-family: system-ui, -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
+font-family: system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;
 background:var(--bg);
 color:var(--ink);
 }
 
-.wrap{max-width:560px;margin:0 auto;padding:14px}
+.wrap{max-width:560px;margin:auto;padding:14px}
 
 .header,.card{
 background:var(--card);
 border-radius:var(--radius);
 box-shadow:var(--shadow);
 padding:14px;
-margin-bottom:12px;
+margin-bottom:14px;
 }
 
 .header{
@@ -44,7 +44,8 @@ background:linear-gradient(135deg, rgba(90,62,200,.12), rgba(47,108,255,.10));
 
 h1{margin:0 0 6px;font-size:18px;color:var(--accent)}
 h2{margin:0 0 8px;font-size:15px;color:var(--accent)}
-p{margin:0;font-size:13.5px;line-height:1.7}
+h3{margin:0 0 6px;font-size:14px;color:var(--accent)}
+p{margin:0;font-size:13.5px;line-height:1.75}
 
 .flow{text-align:center;font-size:13.5px;line-height:1.8}
 .flow span{display:block}
@@ -66,7 +67,8 @@ color:var(--accent);
 .toggle{
 display:flex;
 justify-content:space-between;
-align-items:center;
+align-items:flex-start;
+gap:10px;
 padding:10px;
 border:1px solid var(--line);
 border-radius:10px;
@@ -79,6 +81,7 @@ margin:8px 0;
 .range-wrap label{font-size:13px;display:block;margin-bottom:6px}
 input[type=range]{width:100%}
 
+/* شريط النمط (تمثيل بصري فقط) */
 .pattern-bar{
 display:flex;
 gap:6px;
@@ -89,29 +92,36 @@ flex:1;
 height:18px;
 border-radius:6px;
 }
-.pattern-bar span.complete{background:var(--lavender)}
-.pattern-bar span.missing{
+.complete{background:var(--lavender)}
+.missing{
 background:repeating-linear-gradient(
-45deg,
-#eceaf8,
-#eceaf8 6px,
-#ffffff 6px,
-#ffffff 12px
+45deg,#eceaf8,#eceaf8 6px,#ffffff 6px,#ffffff 12px
 );
 }
 
+/* الأثر */
 .impact{
-margin-top:10px;
-padding:10px;
+margin-top:12px;
+padding:12px;
 border-radius:10px;
 font-size:13px;
-line-height:1.6;
+line-height:1.7;
 }
 .good{background:#ecebfb;color:#3f35a8}
 .warn{background:#fff4e5;color:var(--warn)}
 
+.details-box{
+margin-top:10px;
+padding:10px;
+border:1px solid var(--line);
+border-radius:10px;
+background:#faf9ff;
+}
+.details-box p{margin-bottom:6px}
+
+/* الفوتر */
 .footer{
-margin-top:20px;
+margin-top:22px;
 padding:14px;
 border-top:2px solid var(--lavender-light);
 text-align:center;
@@ -136,7 +146,7 @@ color:var(--muted);
 <h1>سجل الأورام</h1>
 <p>
 سجل طبي تخصصي يوثّق رحلة الورم من التشخيص وحتى المتابعة،
-ويحوّل البيانات الفردية إلى معرفة صحية تراكمية.
+ويحوّل البيانات إلى معرفة صحية قابلة للفهم والتحليل.
 </p>
 </div>
 
@@ -151,29 +161,21 @@ color:var(--muted);
 </div>
 </div>
 
-<!-- المطوية (مستقلة ومكتملة) -->
+<!-- المطوية كاملة -->
 <div class="card leaflet">
 <h2>المطوية التوعوية</h2>
 
 <p><strong>ما هو سجل الأورام؟</strong><br>
-سجل صحي تخصصي يجمع بيانات تشخيص الورم، مسار العلاج، والاستجابة والمتابعة عبر الزمن،
-بهدف فهم كيف يظهر المرض ويتغير داخل المجتمع.</p>
+سجل يجمع معلومات الورم، مرحلة المرض، العلاج، والمتابعة عبر الزمن.</p>
 
-<p style="margin-top:10px"><strong>هل حالة واحدة تكفي؟</strong><br>
-لا. حالة واحدة لا تُظهر نمطًا،
-لكن تراكم الحالات يكشف التكرار، الاختلاف، والفروق بين المجموعات.</p>
+<p style="margin-top:8px"><strong>لماذا مشاركة المعلومات مهمة؟</strong><br>
+لأن كثيرًا من الأنماط الصحية لا تظهر في حالة واحدة، بل تتكوّن عبر تراكم الحالات.</p>
 
-<p style="margin-top:10px"><strong>ما دور كل فرد؟</strong><br>
-كل فرد يُشكّل جزءًا من مجموعة أكبر.
-ومع الوقت، تتحول هذه الأجزاء إلى صورة واضحة تساعد على التخطيط الصحي
-وتحسين الرعاية المستقبلية.</p>
-
-<p style="margin-top:10px"><strong>ماذا يحدث عند غياب البيانات؟</strong><br>
-غياب المعلومات لا يؤثر على فرد واحد فقط،
-بل يضعف قدرة النظام الصحي على رؤية الواقع كما هو.</p>
+<p style="margin-top:8px"><strong>دور كل فرد</strong><br>
+كل حالة مكتملة تضيف معرفة، وكل نقص في البيانات يحد من القدرة على الفهم والاستنتاج.</p>
 
 <div class="leaflet-end">
-المعرفة لا تظهر فورًا… بل تتكوّن بالتراكم
+↓ شاهد كيف يتكوّن الأثر فعليًا ↓
 </div>
 </div>
 
@@ -182,19 +184,22 @@ color:var(--muted);
 <h2>تجربة تفاعلية: كيف يتكوّن الأثر</h2>
 
 <div class="toggle">
-<label>مرحلة المرض <small>تحديد شدة الحالة</small></label>
+<label>مرحلة المرض <small>أساس المقارنة بين الحالات</small></label>
 <input type="checkbox" checked id="stage">
 </div>
+
 <div class="toggle">
-<label>المتابعة <small>فهم التغير عبر الزمن</small></label>
+<label>المتابعة <small>تُظهر التحسّن أو الانتكاس عبر الزمن</small></label>
 <input type="checkbox" checked id="follow">
 </div>
+
 <div class="toggle">
-<label>التاريخ العائلي <small>كشف الاستعداد الوراثي</small></label>
+<label>التاريخ العائلي <small>يكشف أنماط وراثية محتملة</small></label>
 <input type="checkbox" checked id="family">
 </div>
+
 <div class="toggle">
-<label>عوامل الخطورة <small>ربط المرض بالبيئة</small></label>
+<label>التدخين / التعرّضات <small>يربط المرض بعوامل خطورة</small></label>
 <input type="checkbox" checked id="risk">
 </div>
 
@@ -206,78 +211,73 @@ color:var(--muted);
 </div>
 
 <div id="pattern" class="pattern-bar"></div>
+
 <div id="impact" class="impact"></div>
+<div id="details" class="details-box"></div>
 </div>
 
 <div class="footer">
 المعرفة الصحية لا تُبنى بحالة واحدة
-<small>بل بتراكم بيانات كل فرد عبر الزمن</small>
+<small>بل بنمط يتكوّن عبر الزمن وتراكم المرضى</small>
 </div>
 
 </div>
 
 <script>
-const checks = ["stage","follow","family","risk"].map(id=>document.getElementById(id));
-const slider = document.getElementById("patients");
-const countLabel = document.getElementById("count");
-const pattern = document.getElementById("pattern");
-const impact = document.getElementById("impact");
+const vars=[
+{id:"stage",label:"Stage",effect:"غياب المرحلة يمنع المقارنة بين الحالات."},
+{id:"follow",label:"Follow-up",effect:"غياب المتابعة يمنع تقييم النتائج."},
+{id:"family",label:"التاريخ العائلي",effect:"غيابه يخفي الاستعداد الوراثي."},
+{id:"risk",label:"التدخين/التعرّضات",effect:"غيابه يمنع ربط المرض بعوامل خطورة."}
+];
+
+const slider=document.getElementById("patients");
+const countLabel=document.getElementById("count");
+const pattern=document.getElementById("pattern");
+const impact=document.getElementById("impact");
+const details=document.getElementById("details");
 
 function render(){
-const n = Number(slider.value);
-countLabel.textContent = n;
-pattern.innerHTML = "";
+const n=+slider.value;
+countLabel.textContent=n;
+pattern.innerHTML="";
+details.innerHTML="<h3>الأثر التفصيلي للمتغيرات</h3>";
 
-const missing = checks.filter(c=>!c.checked).length;
-const completeness = 4 - missing;
+let active=0;
 
-// نمط بصري مفاهيمي (10 وحدات ثابتة)
+vars.forEach(v=>{
+const checked=document.getElementById(v.id).checked;
+if(checked) active++;
+details.innerHTML+=`<p>${checked?"✓":"✕"} <strong>${v.label}</strong> — ${checked?"يدعم التحليل":" "+v.effect}</p>`;
+});
+
 for(let i=1;i<=10;i++){
 const s=document.createElement("span");
-
-if(n < 50){
-s.className="missing";
-}
-else if(n < 150){
-s.className = i <= 3 ? "complete":"missing";
-}
-else if(n < 300){
-s.className = i <= 6 ? "complete":"missing";
-}
-else{
-s.className="complete";
-}
+if(n<50) s.className="missing";
+else if(n<150) s.className=i<=3?"complete":"missing";
+else if(n<300) s.className=i<=6?"complete":"missing";
+else s.className="complete";
 pattern.appendChild(s);
 }
 
-// منطق الأثر الحقيقي
-if(n < 50){
+if(n<50){
 impact.className="impact warn";
-impact.textContent =
-"الأثر المباشر: عدد الحالات غير كافٍ لرؤية أي نمط، مهما كانت جودة البيانات.";
-}
-else if(n < 150){
+impact.textContent="عدد الحالات غير كافٍ لرؤية أي نمط.";
+}else if(n<150){
 impact.className="impact warn";
-impact.textContent =
-"الأثر المباشر: تظهر إشارات أولية، لكنها غير مستقرة ولا يمكن تعميمها.";
-}
-else if(n < 300){
-impact.className = completeness >= 3 ? "impact good":"impact warn";
-impact.textContent =
-completeness >= 3
-? "الأثر المباشر: يتكوّن نمط فعلي يمكن ملاحظته عند اكتمال أغلب المتغيرات."
-: "الأثر المباشر: العدد مناسب، لكن نقص بعض المتغيرات يضعف وضوح النمط.";
-}
-else{
-impact.className = completeness >= 3 ? "impact good":"impact warn";
-impact.textContent =
-completeness >= 3
-? "الأثر المباشر: نمط واضح ومتكرر ناتج عن تراكم كافٍ واكتمال البيانات."
-: "الأثر المباشر: العدد كبير، لكن غياب متغيرات أساسية يحد من التفسير.";
+impact.textContent="تظهر ملاحظات أولية لكنها غير مستقرة.";
+}else if(n<300){
+impact.className="impact good";
+impact.textContent="يتكوّن نمط فعلي يمكن ملاحظته.";
+}else{
+impact.className="impact good";
+impact.textContent="نمط واضح ومتكرر ناتج عن تراكم كافٍ من الحالات.";
 }
 }
 
-checks.forEach(c=>c.addEventListener("change",render));
+vars.forEach(v=>{
+document.getElementById(v.id).addEventListener("change",render);
+});
 slider.addEventListener("input",render);
 render();
 </script>
