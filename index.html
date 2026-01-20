@@ -23,24 +23,24 @@
 *{box-sizing:border-box}
 body{
 margin:0;
-font-family: system-ui, -apple-system, "Segoe UI", Tahoma, Arial, sans-serif;
+font-family:system-ui,-apple-system,"Segoe UI",Tahoma,Arial,sans-serif;
 background:var(--bg);
 color:var(--ink);
 }
-
 .wrap{max-width:560px;margin:0 auto;padding:12px}
 
+/* Header */
 .header{
-background:linear-gradient(135deg, rgba(90,62,200,.12), rgba(47,108,255,.10));
+background:linear-gradient(135deg,rgba(90,62,200,.12),rgba(47,108,255,.10));
 border-radius:16px;
 padding:12px;
 margin-bottom:12px;
 box-shadow:var(--shadow);
 }
-
 .header h1{margin:0 0 6px;font-size:15px;color:var(--accent)}
 .header p{margin:0;font-size:12.5px;color:var(--muted)}
 
+/* Card */
 .card{
 background:var(--card);
 border-radius:var(--radius);
@@ -48,14 +48,13 @@ padding:12px;
 box-shadow:var(--shadow);
 margin:10px 0;
 }
-
 .card h2{margin:0 0 10px;font-size:14px;color:var(--accent)}
 
+/* Leaflet */
 .leaflet{
 border:2px dashed var(--line);
 background:linear-gradient(180deg,#fff,#faf9ff);
 }
-
 .leaflet-end{
 margin-top:10px;
 text-align:center;
@@ -64,6 +63,7 @@ color:var(--accent);
 font-weight:600;
 }
 
+/* Toggles */
 .toggle{
 display:flex;
 justify-content:space-between;
@@ -73,14 +73,15 @@ border:1px solid var(--line);
 border-radius:12px;
 margin:8px 0;
 }
-
 .toggle label{font-size:13px}
 .toggle small{display:block;color:var(--muted);font-size:11.5px}
 
+/* Range */
 .range-wrap{margin:12px 0}
 .range-wrap label{font-size:13px;display:block;margin-bottom:6px}
 input[type=range]{width:100%}
 
+/* Pattern */
 .pattern{
 display:grid;
 grid-template-columns:repeat(6,1fr);
@@ -95,6 +96,7 @@ background:#c9c3f3;
 .pattern.warn span{opacity:.35}
 .pattern.bad span{background:#f2b8b5}
 
+/* Impact */
 .impact{
 padding:10px;
 border-radius:12px;
@@ -106,33 +108,19 @@ margin-top:8px;
 .warn{background:#fff4e5;color:var(--warn)}
 .bad{background:#fdecea;color:var(--bad)}
 
-.details{
-border:1px solid var(--line);
-border-radius:12px;
-margin-top:10px;
-overflow:hidden;
-}
-
-.details summary{
-cursor:pointer;
-padding:10px;
-font-size:13px;
+/* Details under each element */
+.detail-row{
+border:1px dashed var(--line);
+padding:8px;
+border-radius:10px;
+margin-top:-4px;
+margin-bottom:10px;
 background:#faf9ff;
-}
-
-.details .content{
-padding:10px;
-font-size:12.6px;
+font-size:12.5px;
 line-height:1.6;
 }
 
-.detail-row{
-border-bottom:1px dashed var(--line);
-padding:8px 0;
-}
-
-.detail-row:last-child{border-bottom:none}
-
+/* Footer */
 .footer{
 text-align:center;
 font-size:12px;
@@ -145,170 +133,178 @@ margin-top:12px;
 <body>
 <div class="wrap">
 
-<div class="header">
-<h1>تجربة تفاعلية: اكتمال سجل الأورام</h1>
-<p>شاهد كيف يؤثر اكتمال البيانات والزمن على ظهور الأنماط الصحية.</p>
-</div>
+<!-- ========== الجزء التفاعلي أولاً ========== -->
 
-<!-- ===== المطوية التوعوية ===== -->
-<section class="card leaflet">
-<h2>لماذا تُهمّ البيانات في سجل الأورام؟</h2>
-
-<p><strong>ما هو سجل الأورام؟</strong><br>
-سجل طبي متخصص يوثّق معلومات الورم منذ التشخيص،
-مرورًا بمرحلة المرض والعلاج،
-وحتى المتابعة عبر الزمن،
-بهدف تحويل البيانات إلى معرفة صحية قابلة للتحليل.
-</p>
-
-<p style="margin-top:8px"><strong>لماذا مشاركة المعلومات مهمة؟</strong><br>
-كثير من الأنماط الصحية لا تظهر في حالة واحدة.
-لا يمكن فهمها إلا عند تجميع البيانات
-وربطها عبر عدد كافٍ من الحالات ومع مرور الوقت.
-</p>
-
-<p style="margin-top:8px"><strong>كيف يساهم كل فرد؟</strong><br>
-كل حالة مكتملة تضيف نقطة معرفة،
-ومع التراكم تتحول هذه النقاط
-إلى أنماط تساعد على تحسين الرعاية الصحية.
-</p>
-
-<p style="margin-top:8px"><strong>هل يؤثر ذلك على المريض نفسه؟</strong><br>
-مشاركة المعلومات لا تغيّر حالة المريض الفردية،
-لكنها تحسّن ما يمكن تعلّمه
-لصالح المرضى مستقبلًا.
-</p>
-
-<div class="leaflet-end">↓ جرّب التفاعل أدناه ↓</div>
-</section>
-
-<!-- ===== عناصر البيانات ===== -->
+<!-- عناصر البيانات -->
 <section class="card">
 <h2>عناصر البيانات في السجل الورمي</h2>
 
 <div class="toggle">
-<label>Stage <small>المقارنة حسب شدة المرض</small></label>
-<input type="checkbox" checked id="stage">
+<label>المرحلة المرضية <small>المقارنة حسب شدة المرض</small></label>
+<input type="checkbox" id="stage" checked>
 </div>
+<div class="detail-row" id="detail-stage"></div>
 
 <div class="toggle">
-<label>Follow-up <small>تحليل النتائج عبر الزمن</small></label>
-<input type="checkbox" checked id="follow">
+<label>المتابعة <small>تحليل النتائج عبر الزمن</small></label>
+<input type="checkbox" id="follow" checked>
 </div>
+<div class="detail-row" id="detail-follow"></div>
 
 <div class="toggle">
 <label>التاريخ العائلي <small>فهم الأنماط الوراثية</small></label>
-<input type="checkbox" checked id="family">
+<input type="checkbox" id="family" checked>
 </div>
+<div class="detail-row" id="detail-family"></div>
 
 <div class="toggle">
-<label>التدخين / التعرضات <small>ربط المرض بعوامل خطورة</small></label>
+<label>التدخين والتعرضات <small>ربط المرض بعوامل الخطورة</small></label>
 <input type="checkbox" id="smoking">
 </div>
+<div class="detail-row" id="detail-smoking"></div>
 </section>
 
-<!-- ===== الزمن ===== -->
+<!-- الفترة الزمنية -->
 <section class="card">
 <h2>الفترة الزمنية</h2>
+
+<p style="font-size:12.8px;color:var(--muted);line-height:1.6;margin-bottom:10px;">
+الشريط الزمني يوضّح عدد السنوات التي تراكمت فيها بيانات المرضى.
+كلما زادت السنوات أصبحت الأنماط الصحية أوضح وأسهل في التحليل.
+</p>
+
 <div class="range-wrap">
 <label>السنة الحالية في التراكم: <strong><span id="year">2018</span></strong></label>
 <input type="range" min="2013" max="2025" value="2018" id="timeline">
 </div>
 </section>
 
-<!-- ===== النمط ===== -->
+<!-- ظهور النمط -->
 <section class="card">
 <h2>ظهور النمط</h2>
+
 <div id="patternGrid" class="pattern">
 <span></span><span></span><span></span><span></span><span></span><span></span>
 <span></span><span></span><span></span><span></span><span></span><span></span>
 </div>
-<div id="impactBox" class="impact"></div>
 
-<details class="details">
-<summary>كيف يؤثر غياب كل عنصر؟</summary>
-<div class="content" id="detailsBox"></div>
-</details>
+<div id="impactBox" class="impact"></div>
 </section>
 
+<!-- Footer يوضع قبل المطوية -->
 <div class="footer">
 نقص البيانات لا يغيّر حالة المريض… لكنه يغيّر ما يمكن تعلّمه منها.
 </div>
+
+<!-- ========== المطوية التوعوية (آخر جزء) ========== -->
+<section class="card leaflet">
+<h2>لماذا تُهمّ البيانات في سجل الأورام؟</h2>
+
+<p><strong>ما هو سجل الأورام؟</strong><br>
+هو سجل طبي يوثّق رحلة المريض منذ التشخيص وحتى المتابعة، بهدف تحويل البيانات إلى معرفة صحية يمكن تحليلها.
+</p>
+
+<p><strong>لماذا مشاركة المعلومات مهمة؟</strong><br>
+الأنماط الصحية لا تظهر من حالة واحدة، بل تحتاج إلى تجميع البيانات عبر عدد كافٍ من الحالات ومع مرور الوقت.
+</p>
+
+<p><strong>كيف يساهم كل فرد؟</strong><br>
+كل حالة مكتملة تضيف نقطة معرفة، ومع تراكم النقاط يظهر النمط الصحي بشكل أوضح.
+</p>
+
+<p><strong>هل يؤثر ذلك على المريض نفسه؟</strong><br>
+مشاركة المعلومات لا تغيّر حالة الفرد، لكنها ترفع جودة المعرفة لصالح جميع المرضى.
+</p>
+
+<div class="leaflet-end">شكرًا لاهتمامك</div>
+</section>
 
 </div>
 
 <script>
 const FACTORS = {
 stage:{
-label:"Stage",
-present:"يدعم التحليل ويزيد قوة الاستنتاج.",
+label:"المرحلة المرضية",
+present:"يسمح بالمقارنة الدقيقة بين شدة الحالات.",
 missing:[
-"يمنع المقارنة بين المراحل",
+"يمنع فهم الفروقات بين مراحل المرض",
 "يضعف تفسير اختلاف النتائج",
 "ينتج عنه تحليل غير مضبوط"
 ]
 },
 follow:{
-label:"Follow-up",
-present:"يتيح تحليل النتائج عبر الزمن.",
+label:"المتابعة",
+present:"تساعد على فهم النتائج عبر الزمن.",
 missing:[
-"يمنع تحليل البقاء أو الانتكاس",
-"يضعف تقييم أثر العلاج",
-"ينتج عنه قصة علاج غير مكتملة"
+"تحجب تحليل البقاء أو الانتكاس",
+"تضعف تقييم أثر العلاج",
+"تجعل القصة العلاجية غير مكتملة"
 ]
 },
 family:{
 label:"التاريخ العائلي",
-present:"يدعم فهم القابلية الوراثية.",
+present:"يساعد في فهم القابلية الوراثية.",
 missing:[
 "يمنع دراسة الأنماط العائلية",
-"يضعف التوعية والاستشارة الوراثية",
-"ينتج عنه فقدان فرص كشف مبكر"
+"يضعف الاستشارة الوراثية",
+"يفقد فرص الكشف المبكر"
 ]
 },
 smoking:{
-label:"التدخين/التعرضات",
-present:"يربط المرض بعوامل خطورة.",
+label:"التدخين والتعرضات",
+present:"يربط المرض بعوامل الخطورة.",
 missing:[
-"يمنع ربط المرض بعوامل سلوكية/بيئية",
+"يمنع فهم العوامل البيئية والسلوكية",
 "يضعف تصميم تدخلات وقائية",
-"ينتج عنه صورة ناقصة عن المسببات"
+"ينتج عنه صورة غير مكتملة عن المسببات"
 ]
 }
 };
 
 const els = {
-stage, follow, family, smoking,
+stage:document.getElementById("stage"),
+follow:document.getElementById("follow"),
+family:document.getElementById("family"),
+smoking:document.getElementById("smoking"),
 timeline:document.getElementById("timeline"),
 year:document.getElementById("year"),
 pattern:document.getElementById("patternGrid"),
-impact:document.getElementById("impactBox"),
-details:document.getElementById("detailsBox")
+impact:document.getElementById("impactBox")
 };
 
 function update(){
 const y = +els.timeline.value;
 els.year.textContent = y;
 
-els.details.innerHTML="";
-
 let missingCount = 0;
+
+// reset
+["detail-stage","detail-follow","detail-family","detail-smoking"]
+.forEach(id=>document.getElementById(id).innerHTML="");
+
+const map={
+stage:"detail-stage",
+follow:"detail-follow",
+family:"detail-family",
+smoking:"detail-smoking"
+};
 
 Object.keys(FACTORS).forEach(k=>{
 const checked = els[k].checked;
-if(!checked) missingCount++;
+const box = document.getElementById(map[k]);
 
-let html = `<div class="detail-row">
-<strong>${checked?"✔":"✖"} ${FACTORS[k].label}</strong><br>`;
 if(checked){
-html += `<span style="color:var(--good)">${FACTORS[k].present}</span>`;
+box.innerHTML =
+`<span style="color:var(--good)">✔ ${FACTORS[k].present}</span>`;
 }else{
+missingCount++;
+let html =
+`<span style="color:var(--bad)">✖ غياب هذا العنصر يسبب:</span><br>`;
 FACTORS[k].missing.forEach(m=>{
 html += `<div style="color:var(--bad)">• ${m}</div>`;
 });
+box.innerHTML = html;
 }
-html += `</div>`;
-els.details.innerHTML += html;
 });
 
 els.pattern.className="pattern";
@@ -316,33 +312,33 @@ els.pattern.className="pattern";
 if(missingCount>=2){
 els.pattern.classList.add("bad");
 els.impact.className="impact bad";
-els.impact.textContent="✖ نقص جوهري في البيانات → لا يظهر نمط موثوق.";
+els.impact.textContent="✖ نقص كبير في البيانات → لا يظهر نمط موثوق.";
 return;
 }
 
 if(y<=2014){
 els.pattern.classList.add("bad");
 els.impact.className="impact bad";
-els.impact.textContent="البيانات في مرحلة التأسيس → لا يظهر نمط.";
+els.impact.textContent="البيانات قليلة في السنوات الأولى → لا يظهر نمط.";
 }
 else if(y<=2017){
 els.pattern.classList.add("warn");
 els.impact.className="impact warn";
-els.impact.textContent="بداية تراكم → ملاحظات غير مستقرة.";
+els.impact.textContent="بداية تراكم البيانات → ملاحظات غير مستقرة.";
 }
 else if(y<=2020){
 els.impact.className="impact good";
-els.impact.textContent="تراكم كافٍ → يتكوّن نمط فعلي.";
+els.impact.textContent="بدأ ظهور نمط فعلي مع تراكم البيانات.";
 }
 else{
 els.impact.className="impact good";
-els.impact.textContent="تراكم ناضج عبر سنوات → نمط واضح ومتكرر.";
+els.impact.textContent="تراكم ناضج على مدى سنوات → نمط واضح ومتكرر.";
 }
 }
 
-[stage,follow,family,smoking,els.timeline].forEach(el=>{
-el.addEventListener("input",update);
-});
+[els.stage,els.follow,els.family,els.smoking,els.timeline]
+.forEach(el=>el.addEventListener("input",update));
+
 update();
 </script>
 
